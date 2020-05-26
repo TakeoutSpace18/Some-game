@@ -14,8 +14,9 @@ public:
 
 	void runMainLoop();
 	void draw(const sf::Drawable& obj);
-	void pushState(std::unique_ptr<State_Base> state);
+	void pushState(std::unique_ptr<State::State_Base> state);
 	void popState();
+	void setView(sf::View view);
 
 private:
 
@@ -23,9 +24,11 @@ private:
 	void toggleFullscreen();
 	void configureWindow();
 
+	bool m_isFullscreen;
+
 	sf::RenderWindow m_window;
 	sf::VideoMode m_videomode;
-	std::stack<std::unique_ptr<State_Base>> m_states;
+	std::stack<std::unique_ptr<State::State_Base>> m_states;
 
 };
 
