@@ -5,6 +5,7 @@
 #include <stack>
 
 #include "States/State_Base.h"
+#include "Settings.h"
 
 class Application
 {
@@ -24,10 +25,9 @@ private:
 	void toggleFullscreen();
 	void configureWindow();
 
-	bool m_isFullscreen;
+	Settings m_settings;
 
 	sf::RenderWindow m_window;
-	sf::VideoMode m_videomode;
 	std::stack<std::unique_ptr<State::State_Base>> m_states;
 
 };

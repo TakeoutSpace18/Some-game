@@ -1,13 +1,20 @@
 #include "Application.h"
-
 #include "Icon.h"
 #include "States/State_Test.h"
+#include "Settings.h"
 
 Application::Application()
 {
-	m_isFullscreen = false;
-	m_videomode = sf::VideoMode(300, 300);
-	m_window.create(m_videomode, "Some-game");
+	if (m_settings.get<bool>("is_fullscreen"))
+	{
+		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"), sf::Style::Fullscreen);
+	}
+	else
+	{
+		sf::VideoMode videomode(m_settings.get<unsigned int>("win_width"), m_settings.get<unsigned int>("win_height"));
+		m_window.create(videomode, m_settings.get<std::string>("win_title"));
+	}
+	
 	configureWindow();
 	pushState(std::make_unique<State::Test>(*this));
 	runMainLoop();
@@ -22,18 +29,19 @@ void Application::configureWindow()
 
 void Application::toggleFullscreen()
 {
-	if (!m_isFullscreen)
+	if (!m_settings.get<bool>("is_fullscreen"))
 	{
-		m_window.create(sf::VideoMode::getDesktopMode(), "000", sf::Style::Fullscreen);
+		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"), sf::Style::Fullscreen);
 	}
 	else
 	{
-		m_window.create(m_videomode, "000");
+		sf::VideoMode videomode(m_settings.get<unsigned int>("win_width"), m_settings.get<unsigned int>("win_height"));
+		m_window.create(videomode, m_settings.get<std::string>("win_title"));
 	}
 
 	configureWindow();
 	m_states.top()->setViewSize(m_window.getDefaultView());
-	m_isFullscreen = !m_isFullscreen;
+	m_settings["is_fullscreen"] = !m_settings.get<bool>("is_fullscreen");
 }
 
 void Application::runMainLoop()
@@ -49,6 +57,7 @@ void Application::runMainLoop()
 			m_states.top()->render();
 			m_window.display();
 		}
+		m_settings.save();
 }
 
 void Application::handleEvents()
@@ -70,7 +79,8 @@ void Application::handleEvents()
 		}
 		else if (event.type == sf::Event::Resized)
 		{
-			//m_states.top()->setViewSize(m_window.getDefaultView());
+			m_settings["win_width"] = event.size.width;
+			m_settings["win_height"] = event.size.height;
 			m_states.top()->setViewSize(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 		}
 

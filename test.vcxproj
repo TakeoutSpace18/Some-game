@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\States\State_Base.cpp" />
     <ClCompile Include="Source\States\State_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Icon.h" />
+    <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\States\State_Base.h" />
     <ClInclude Include="Source\States\State_Test.h" />
     <ClInclude Include="Source\Tools\json.hpp" />
