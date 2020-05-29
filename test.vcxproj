@@ -24,6 +24,7 @@
     <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\States\State_Base.cpp" />
     <ClCompile Include="Source\States\State_Test.cpp" />
+    <ClCompile Include="Source\Tools\FpsCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -31,7 +32,11 @@
     <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\States\State_Base.h" />
     <ClInclude Include="Source\States\State_Test.h" />
+    <ClInclude Include="Source\Tools\FpsCounter.h" />
     <ClInclude Include="Source\Tools\json.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\settings.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -162,4 +167,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties data_4settings_1json__JsonSchema="http://json.schemastore.org/cirrus" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

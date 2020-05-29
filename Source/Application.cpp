@@ -55,6 +55,11 @@ void Application::runMainLoop()
 			m_window.clear();
 			m_states.top()->update(delta);
 			m_states.top()->render();
+			if (m_settings.get<bool>("show_fps"))
+			{
+				m_fpscounter.update(delta);
+				m_fpscounter.render();
+			}
 			m_window.display();
 		}
 		m_settings.save();

@@ -1,6 +1,7 @@
 {
-    "is_fullscreen": true,
-    "win_height": 543,
+    "is_fullscreen": false,
+    "show_fps": true,
+    "win_height": 372,
     "win_title": "Some-game",
-    "win_width": 906
+    "win_width": 623
 }

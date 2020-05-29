@@ -27,7 +27,8 @@ private:
 		"win_width"     : 300,
 		"win_height"    : 250,
 		"win_title"     : "Some-game",
-		"is_fullscreen" : false
+		"is_fullscreen" : false,
+		"show_fps"      : true
 		})";
 
 	json m_file;

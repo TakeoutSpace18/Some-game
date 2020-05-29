@@ -6,6 +6,7 @@
 
 #include "States/State_Base.h"
 #include "Settings.h"
+#include "Tools/FpsCounter.h"
 
 class Application
 {
@@ -26,6 +27,7 @@ private:
 	void configureWindow();
 
 	Settings m_settings;
+	FpsCounter m_fpscounter{ *this };
 
 	sf::RenderWindow m_window;
 	std::stack<std::unique_ptr<State::State_Base>> m_states;
