@@ -40,7 +40,10 @@ void Application::toggleFullscreen()
 	}
 
 	configureWindow();
-	m_states.top()->setViewSize(m_window.getDefaultView());
+	for (int i = 0; i < m_states.size(); i++)
+	{
+		m_states[i]->setViewSize(m_window.getDefaultView());
+	}
 	m_settings["is_fullscreen"] = !m_settings.get<bool>("is_fullscreen");
 }
 
@@ -53,8 +56,13 @@ void Application::runMainLoop()
 			sf::Time delta = clock.restart();
 			handleEvents();
 			m_window.clear();
-			m_states.top()->update(delta);
-			m_states.top()->render();
+
+			for (int i = 0; i < m_states.size(); i++)
+			{
+				m_states[i]->update(delta);
+				m_states[i]->render();
+			}
+
 			if (m_settings.get<bool>("show_fps"))
 			{
 				m_fpscounter.update(delta);
@@ -86,10 +94,13 @@ void Application::handleEvents()
 		{
 			m_settings["win_width"] = event.size.width;
 			m_settings["win_height"] = event.size.height;
-			m_states.top()->setViewSize(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+			for (int i = 0; i < m_states.size(); i++)
+			{
+				m_states[i]->setViewSize(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+			}
 		}
 
-		else m_states.top()->input(event);
+		else m_states.front()->input(event);
 	}
 }
 
@@ -100,12 +111,12 @@ void Application::draw(const sf::Drawable& obj)
 
 void Application::pushState(std::unique_ptr<State::State_Base> state)
 {
-	m_states.push(std::move(state));
+	m_states.push_front(std::move(state));
 }
 
 void Application::popState()
 {
-	m_states.pop();
+	m_states.pop_back();
 }
 
 void Application::setView(sf::View view)

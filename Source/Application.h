@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <memory>
-#include <stack>
+#include <deque>
 
 #include "States/State_Base.h"
 #include "Settings.h"
@@ -34,7 +34,7 @@ private:
 	FpsCounter m_fpscounter{ *this };
 
 	sf::RenderWindow m_window;
-	std::stack<std::unique_ptr<State::State_Base>> m_states;
+	std::deque<std::unique_ptr<State::State_Base>> m_states;
 
 };
 
