@@ -1,10 +1,11 @@
 #include "FpsCounter.h"
 #include "../Application.h"
+#include "../Resourse_Managers/Resourses.h"
 
 FpsCounter::FpsCounter(Application& app) : m_p_application(&app)
 {
-	m_font.loadFromFile("data/fonts/Sansation.ttf");
-	m_text.setFont(m_font);
+	m_frames = 0;
+	m_text.setFont(m_p_application->getResourses().fonts.get(Fonts::Sansation));
 	m_text.setPosition(10, 10);
 	m_text.setCharacterSize(20);
 }

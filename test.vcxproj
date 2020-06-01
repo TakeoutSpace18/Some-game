@@ -27,6 +27,8 @@
     <ClCompile Include="Source\Tools\FpsCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ResourseManager.h" />
+    <ClInclude Include="Resourses.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Icon.h" />
     <ClInclude Include="Source\Settings.h" />

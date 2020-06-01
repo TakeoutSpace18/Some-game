@@ -7,6 +7,7 @@
 #include "States/State_Base.h"
 #include "Settings.h"
 #include "Tools/FpsCounter.h"
+#include "Resourse_Managers/Resourses.h"
 
 class Application
 {
@@ -20,12 +21,15 @@ public:
 	void popState();
 	void setView(sf::View view);
 
+	const ResourseHolder& getResourses() const { return m_resourses; }
+
 private:
 
 	void handleEvents();
 	void toggleFullscreen();
 	void configureWindow();
 
+	ResourseHolder m_resourses;
 	Settings m_settings;
 	FpsCounter m_fpscounter{ *this };
 

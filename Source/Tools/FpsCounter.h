@@ -16,6 +16,4 @@ private:
 	sf::Text m_text;
 	sf::Time m_updateTime;
 	unsigned short m_frames;
-
-	sf::Font m_font; // временно! 
 };
