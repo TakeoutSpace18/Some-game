@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "Icon.h"
-#include "States/State_Test.h"
+#include "States/Splash_screen.h"
 #include "Settings.h"
 
 Application::Application()
@@ -11,12 +11,12 @@ Application::Application()
 	}
 	else
 	{
-		sf::VideoMode videomode(m_settings.get<unsigned int>("win_width"), m_settings.get<unsigned int>("win_height"));
+		sf::VideoMode videomode(m_settings.get<unsigned int>("cur_win_width"), m_settings.get<unsigned int>("cur_win_height"));
 		m_window.create(videomode, m_settings.get<std::string>("win_title"));
 	}
 	
 	configureWindow();
-	pushState(std::make_unique<State::Test>(*this));
+	pushState(std::make_unique<State::Splash_screen>(*this));
 	runMainLoop();
 }
 
@@ -31,12 +31,18 @@ void Application::toggleFullscreen()
 {
 	if (!m_settings.get<bool>("is_fullscreen"))
 	{
+		m_settings["last_win_width"] = m_settings["cur_win_width"];
+		m_settings["last_win_height"] = m_settings["cur_win_height"];
 		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"), sf::Style::Fullscreen);
+		m_settings["cur_win_width"] = m_window.getSize().x;
+		m_settings["cur_win_height"] = m_window.getSize().y;
 	}
 	else
 	{
-		sf::VideoMode videomode(m_settings.get<unsigned int>("win_width"), m_settings.get<unsigned int>("win_height"));
+		sf::VideoMode videomode(m_settings.get<unsigned int>("last_win_width"), m_settings.get<unsigned int>("last_win_height"));
 		m_window.create(videomode, m_settings.get<std::string>("win_title"));
+		m_settings["cur_win_width"] = m_settings["last_win_width"];
+		m_settings["cur_win_height"] = m_settings["last_win_height"];
 	}
 
 	configureWindow();
@@ -92,8 +98,14 @@ void Application::handleEvents()
 		}
 		else if (event.type == sf::Event::Resized)
 		{
-			m_settings["win_width"] = event.size.width;
-			m_settings["win_height"] = event.size.height;
+			if (event.size.width < m_settings.get<unsigned int>("min_win_width"))
+				event.size.width = m_settings.get<unsigned int>("min_win_width");
+			if (event.size.height < m_settings.get<unsigned int>("min_win_height"))
+				event.size.height = m_settings.get<unsigned int>("min_win_height");
+
+			m_window.setSize(sf::Vector2u(event.size.width, event.size.height));
+			m_settings["cur_win_width"] = event.size.width;
+			m_settings["cur_win_height"] = event.size.height;
 			for (int i = 0; i < m_states.size(); i++)
 			{
 				m_states[i]->setViewSize(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));

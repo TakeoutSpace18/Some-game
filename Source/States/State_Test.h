@@ -15,6 +15,4 @@ namespace State
 	private:
 		sf::RectangleShape m_square;
 	};
-
 }
-

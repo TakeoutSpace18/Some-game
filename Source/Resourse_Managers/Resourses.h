@@ -5,7 +5,7 @@
 
 enum class Textures
 {
-
+	Logo
 };
 
 enum class Fonts
@@ -19,7 +19,7 @@ class TextureManager : public ResourseManager<Textures, sf::Texture>
 public:
 	TextureManager()
 	{
-
+		load(Textures::Logo, "data/textures/logo.png");
 	}
 };
 

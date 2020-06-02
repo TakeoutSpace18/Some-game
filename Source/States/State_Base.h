@@ -14,8 +14,10 @@ namespace State
 		virtual void input  (sf::Event& event)   = 0;
 		virtual void render ()                   = 0;
 
+		
 		void setViewSize(sf::View);   // вызывается при изменении размера окна. Переопределить при особом управлении камерой.
-
+	private:
+		virtual void onWindowResize() = 0;
 	protected:
 		Application* m_p_application;
 	};

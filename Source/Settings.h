@@ -1,6 +1,9 @@
 #pragma once
-#include "Tools/json.hpp"
 #include <string>
+#include <SFML/Graphics.hpp>
+
+#include "Tools/json.hpp"
+
 
 using json = nlohmann::json;
 
@@ -24,11 +27,15 @@ private:
 	const std::string m_path = "data\\settings.json";
 	const std::string m_defaultSettings =
 		R"({
-		"win_width"     : 300,
-		"win_height"    : 250,
-		"win_title"     : "Some-game",
-		"is_fullscreen" : false,
-		"show_fps"      : true
+		"cur_win_width"     : 300,
+		"cur_win_height"    : 250,
+		"last_win_width"    : 300,
+		"last_win_height"   : 250,
+		"min_win_width"     : 450,
+		"min_win_height"	: 300,
+		"win_title"         : "Some-game",
+		"is_fullscreen"     : false,
+		"show_fps"          : true
 		})";
 
 	json m_file;

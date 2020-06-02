@@ -7,4 +7,5 @@ State::State_Base::State_Base(Application& app)
 void State::State_Base::setViewSize(sf::View view)
 {
 	m_p_application->setView(view);
+	onWindowResize();
 }

@@ -1,7 +1,11 @@
 {
+    "cur_win_height": 701,
+    "cur_win_width": 610,
     "is_fullscreen": false,
+    "last_win_height": 701,
+    "last_win_width": 1108,
+    "min_win_height": 300,
+    "min_win_width": 450,
     "show_fps": true,
-    "win_height": 439,
-    "win_title": "Some-game",
-    "win_width": 939
+    "win_title": "Some-game"
 }
