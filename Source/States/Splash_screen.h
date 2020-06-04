@@ -1,5 +1,6 @@
 #pragma once
 #include "State_Base.h"
+#include "../Tools/FadeManager.h"
 
 namespace State
 {
@@ -14,6 +15,15 @@ namespace State
 	private:
 		void onWindowResize();
 
+		enum class Mode
+		{
+			Waiting,
+			FadeIn,
+			FadeOut
+		};
+
+		Mode m_mode;
+		FadeManager m_fade;
 		sf::Sprite m_logo;
 		sf::RectangleShape m_background;
 		sf::Clock m_clock;

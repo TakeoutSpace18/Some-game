@@ -4,7 +4,7 @@
 State::Test::Test(Application& app) : State_Base(app)
 {
 	m_square.setSize(sf::Vector2f(130, 130));
-	m_square.setPosition(190, 190);
+	m_square.setPosition(300, 190);
 	m_square.setFillColor(sf::Color::Green);
 }
 

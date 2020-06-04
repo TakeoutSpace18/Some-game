@@ -61,14 +61,14 @@ void Application::runMainLoop()
 		{
 			sf::Time delta = clock.restart();
 			handleEvents();
-			m_window.clear();
+			m_window.clear(sf::Color::White);
 
 			for (int i = 0; i < m_states.size(); i++)
-			{
 				m_states[i]->update(delta);
-				m_states[i]->render();
-			}
 
+			for (int i = 0; i < m_states.size(); i++)
+				m_states[i]->render();
+		
 			if (m_settings.get<bool>("show_fps"))
 			{
 				m_fpscounter.update(delta);

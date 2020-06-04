@@ -13,6 +13,8 @@ namespace State
 		void render();
 
 	private:
+		void onWindowResize() {};
+
 		sf::RectangleShape m_square;
 	};
 }

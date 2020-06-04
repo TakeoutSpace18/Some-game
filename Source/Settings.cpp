@@ -1,5 +1,4 @@
 #include <fstream>
-#include <iostream>
 #include <iomanip>
 
 #include "Tools/json.hpp"
@@ -19,12 +18,10 @@ void Settings::load()
 	{
 		input >> m_file;
 		input.close();
-		std::cout << "case 1";
 	}
 	else
 	{
 		m_file = json::parse(m_defaultSettings);
-		std::cout << "case 2" << std::endl << m_file;
 	}
 }
 
