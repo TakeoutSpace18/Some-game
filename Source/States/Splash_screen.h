@@ -26,6 +26,5 @@ namespace State
 		FadeManager m_fade;
 		sf::Sprite m_logo;
 		sf::RectangleShape m_background;
-		sf::Clock m_clock;
 	};
 }

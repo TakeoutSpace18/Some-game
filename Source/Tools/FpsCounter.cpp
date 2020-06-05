@@ -5,7 +5,7 @@
 FpsCounter::FpsCounter(Application& app) : m_p_application(&app)
 {
 	m_frames = 0;
-	m_text.setFont(m_p_application->getResourses().fonts.get(Fonts::Sansation));
+	m_text.setFont(m_p_application->getResourses().fonts.get(Fonts::SegoeUI));
 	m_text.setPosition(10, 10);
 	m_text.setCharacterSize(20);
 	m_text.setFillColor(sf::Color::Black);

@@ -10,7 +10,7 @@ enum class Textures
 
 enum class Fonts
 {
-	Sansation
+	SegoeUI
 };
 
 
@@ -28,7 +28,7 @@ class FontManager : public ResourseManager<Fonts, sf::Font>
 public:
 	FontManager()
 	{
-		load(Fonts::Sansation, "data/fonts/Sansation.ttf");
+		load(Fonts::SegoeUI, "data/fonts/Segoe-ui.ttf");
 	}
 };
 

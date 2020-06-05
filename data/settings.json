@@ -1,11 +1,11 @@
 {
-    "cur_win_height": 340,
-    "cur_win_width": 1155,
+    "cur_win_height": 1113,
+    "cur_win_width": 1937,
     "is_fullscreen": false,
-    "last_win_height": 485,
-    "last_win_width": 1336,
-    "min_win_height": 300,
-    "min_win_width": 450,
+    "last_win_height": 830,
+    "last_win_width": 1300,
+    "min_win_height": 396,
+    "min_win_width": 704,
     "show_fps": true,
     "win_title": "Some-game"
 }
