@@ -25,6 +25,7 @@ public:
 	const ResourseHolder& getResourses() const { return m_resourses; }
 	Settings&             getSettings()        { return m_settings; }
 	sf::Vector2f          getWindowSize()      { return sf::Vector2f(m_window.getSize().x, m_window.getSize().y); }
+	sf::Vector2i		  getMousePosition()   { return sf::Mouse::getPosition(m_window); }
 
 	
 

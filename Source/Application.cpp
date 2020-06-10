@@ -24,7 +24,7 @@ void Application::configureWindow()
 {
 	m_window.setIcon(icon.width, icon.height, icon.pixel_data);
 	m_window.setKeyRepeatEnabled(false);
-	m_window.setVerticalSyncEnabled(true);
+	m_window.setVerticalSyncEnabled(false);
 }
 
 void Application::toggleFullscreen()

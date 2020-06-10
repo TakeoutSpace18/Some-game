@@ -34,6 +34,7 @@
     <ClCompile Include="Source\States\Splash_screen.cpp" />
     <ClCompile Include="Source\States\State_Base.cpp" />
     <ClCompile Include="Source\States\State_Test.cpp" />
+    <ClCompile Include="Source\Tools\ColorFadeManager.cpp" />
     <ClCompile Include="Source\Tools\FadeManager.cpp" />
     <ClCompile Include="Source\Tools\FpsCounter.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="Source\States\Splash_screen.h" />
     <ClInclude Include="Source\States\State_Base.h" />
     <ClInclude Include="Source\States\State_Test.h" />
+    <ClInclude Include="Source\Tools\ColorFadeManager.h" />
     <ClInclude Include="Source\Tools\FadeManager.h" />
     <ClInclude Include="Source\Tools\FpsCounter.h" />
     <ClInclude Include="Source\Tools\json.hpp" />
