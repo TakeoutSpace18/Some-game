@@ -116,6 +116,14 @@ void Application::handleEvents()
 	}
 }
 
+float Application::getScaleFactor()
+{
+	if (m_window.getSize().x <= sf::VideoMode::getDesktopMode().width / 2)
+		return m_settings.get<float>("ui_scale");
+	else 
+		return m_settings.get<float>("ui_scale") * 2;
+}
+
 void Application::draw(const sf::Drawable& obj)
 {
 	m_window.draw(obj);

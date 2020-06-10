@@ -35,7 +35,8 @@ private:
 		"min_win_height"	: 396,
 		"win_title"         : "Some-game",
 		"is_fullscreen"     : false,
-		"show_fps"          : true
+		"show_fps"          : true,
+		"ui_scale"			: 1
 		})";
 
 	json m_file;

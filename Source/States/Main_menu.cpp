@@ -12,7 +12,7 @@ void State::Main_menu::onWindowResize()
 	float scale_factor = 2;
 	m_buttons.clear();
 	m_buttons.push_back(Button(sf::Vector2f(m_p_application->getWindowSize().x / 2, m_p_application->getWindowSize().y / 2),
-							button_size, "Button test", 26, scale_factor, *m_p_application));
+							button_size, "Button test", 26, *m_p_application));
 }
 
 void State::Main_menu::update(sf::Time& dt)

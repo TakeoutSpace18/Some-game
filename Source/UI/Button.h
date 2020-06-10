@@ -10,7 +10,7 @@ class Application;
 class Button : public sf::Drawable
 {
 public:
-	Button(sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size, float scale_factor, Application& app);
+	Button(sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size, Application& app);
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;

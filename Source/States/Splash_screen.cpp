@@ -15,12 +15,8 @@ State::Splash_screen::Splash_screen(Application& app) : State_Base(app)
 void State::Splash_screen::onWindowResize()
 {
 	m_background.setSize(m_p_application->getWindowSize());
-	if (m_p_application->getWindowSize().x <= 770)
-		m_logo.setScale(1, 1);
-	else if (m_p_application->getWindowSize().x > 770 && m_p_application->getWindowSize().x <= 1300)
-		m_logo.setScale(2, 2);
-	else if (m_p_application->getWindowSize().x > 1300)
-		m_logo.setScale(3, 3);
+	float scale_factor = m_p_application->getScaleFactor();
+	m_logo.setScale(scale_factor, scale_factor);
 	
 	m_logo.setPosition(m_p_application->getWindowSize().x / 2 - m_logo.getGlobalBounds().width / 2,
 					   m_p_application->getWindowSize().y / 2 - m_logo.getGlobalBounds().height / 2);

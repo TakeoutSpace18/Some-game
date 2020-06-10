@@ -1,9 +1,11 @@
 #include "Button.h"
 #include "../Application.h"
 
-Button::Button(sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size, float scale_factor, Application& app)
+Button::Button(sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size, Application& app)
 	: m_p_application(&app)
 {
+	float scale_factor = m_p_application->getScaleFactor();
+
 	m_rectangle.setPosition(sf::Vector2f(center.x - size.x * scale_factor / 2, center.y - size.y * scale_factor / 2));
 	m_rectangle.setSize(size * scale_factor);
 	m_rectangle.setFillColor(sf::Color(non_active_fill_color));
