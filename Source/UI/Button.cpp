@@ -1,13 +1,17 @@
 #include "Button.h"
 #include "../Application.h"
+#include <iostream>
+#include <vector>
 
-Button::Button(sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size, float scale_factor, Application& app)
-	: m_p_application(&app)
+Button::Button(sf::Vector2f center, sf::Vector2f size, const std::string& name, unsigned int text_size, float scale_factor, Application& app)
+	: m_p_application(&app), m_name(name)
 {
 	m_isActive = false;
 	m_inFade = false;
+	m_isPressed = false;
 
-	m_shape.setPosition(sf::Vector2f(center.x - size.x * scale_factor / 2, center.y - size.y * scale_factor / 2));
+	m_shape.setOrigin(size * scale_factor / 2.f);
+	m_shape.setPosition(center);
 	m_shape.setSize(size * scale_factor);
 	m_shape.setFillColor(non_active_fill_color);
 	m_shape.setOutlineColor(outline_color);
@@ -18,25 +22,61 @@ Button::Button(sf::Vector2f center, sf::Vector2f size, const std::string& text, 
 	m_text.setFont(m_p_application->getResourses().fonts.get(Fonts::SegoeUI));
 	m_text.setCharacterSize(text_size * scale_factor);
 	m_text.setFillColor(sf::Color::Black);
-	m_text.setString(text);
-	m_text.setOrigin(m_text.getGlobalBounds().left, m_text.getGlobalBounds().top);
-	m_text.setPosition(center.x - m_text.getGlobalBounds().width / 2, center.y - m_text.getGlobalBounds().height / 2);
+	m_text.setString(name);
+	m_text.setOrigin(m_text.getLocalBounds().width / 2 + 2 * scale_factor, m_text.getLocalBounds().height / 2 + 5 * scale_factor);
+	m_text.setPosition(center);
 }
 
-void Button::update()
+void Button::input(sf::Event& event, std::vector<Button>& other_buttons)
 {
 	if (m_rect.contains(sf::Vector2f(m_p_application->getMousePosition())))
 	{
-		if (!m_isActive)
+		bool another_button_pressed{ false };
+		for (int i = 0; i < other_buttons.size(); i++)
+		{
+			if (other_buttons[i].isPressed())
+			{
+				another_button_pressed = true;
+			}				
+		}
+
+		if (!m_isActive && !another_button_pressed)
 		{
 			m_isActive = true;
 			m_inFade = true;
 			m_fade = ColorFadeManager(sf::seconds(0.1), non_active_fill_color, active_fill_color);
 		}
+
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				m_isPressed = true;
+				m_shape.setScale(press_coef, press_coef);
+				m_text.setScale(press_coef, press_coef);
+			}
+		}
+		else if (event.type == sf::Event::MouseButtonReleased && m_isActive)
+		{
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				m_isPressed = false;
+				m_shape.setScale(1, 1);
+				m_text.setScale(1, 1);
+				std::cout << m_name << std::endl;
+			}
+		}
 	}
 	else
 	{
-		if (m_isActive)
+		if (m_isPressed && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+		{
+			m_isPressed = false;
+			m_shape.setScale(1, 1);
+			m_text.setScale(1, 1);
+		}
+
+		if (m_isActive && !m_isPressed)
 		{
 			m_isActive = false;
 			m_inFade = true;
@@ -44,6 +84,10 @@ void Button::update()
 		}
 	}
 
+}
+
+void Button::update()
+{
 	if (m_inFade)
 		if (m_fade.isOver())
 		{

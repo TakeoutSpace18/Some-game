@@ -25,7 +25,11 @@ void State::Main_menu::update(sf::Time& dt)
 		m_buttons[i].update();
 }
 
-void State::Main_menu::input(sf::Event& event) {};
+void State::Main_menu::input(sf::Event& event)
+{
+	for (int i = 0; i < m_buttons.size(); i++)
+		m_buttons[i].input(event, m_buttons);
+}
 
 void State::Main_menu::render()
 {
