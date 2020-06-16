@@ -2,9 +2,10 @@
 #include "../Application.h"
 #include <iostream>
 #include <vector>
+#include "../Signal.h"
 
-Button::Button(sf::Vector2f center, sf::Vector2f size, const std::string& name, unsigned int text_size, float scale_factor, Application& app)
-	: m_p_application(&app), m_name(name)
+Button::Button(Button::ID id, sf::Vector2f center, sf::Vector2f size, const std::string& name, unsigned int text_size, float scale_factor, Application& app)
+	: m_p_application(&app), m_name(name), m_id(id)
 {
 	m_isActive = false;
 	m_inFade = false;
@@ -63,7 +64,13 @@ void Button::input(sf::Event& event, std::vector<Button>& other_buttons)
 				m_isPressed = false;
 				m_shape.setScale(1, 1);
 				m_text.setScale(1, 1);
+
 				std::cout << m_name << std::endl;
+
+				Signal signal;
+				signal.type = Signal::ButtonClicked;
+				signal.button.id = m_id;
+				m_p_application->handleSignal(signal);
 			}
 		}
 	}

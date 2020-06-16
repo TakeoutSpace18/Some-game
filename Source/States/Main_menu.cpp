@@ -11,11 +11,11 @@ void State::Main_menu::onWindowResize()
 {
 	float scale_factor = m_p_application->getScaleFactor();
 	m_buttons.clear();
-	m_buttons.push_back(Button(sf::Vector2f(m_p_application->getWindowSize().x / 2, m_p_application->getWindowSize().y / 2 - (button_size.y + button_spacing) * scale_factor),
+	m_buttons.push_back(Button(Button::ID::Play, sf::Vector2f(m_p_application->getWindowSize().x / 2, m_p_application->getWindowSize().y / 2 - (button_size.y + button_spacing) * scale_factor),
 							button_size, "Play", 26, scale_factor, *m_p_application));
-	m_buttons.push_back(Button(sf::Vector2f(m_p_application->getWindowSize().x / 2, m_p_application->getWindowSize().y / 2),
+	m_buttons.push_back(Button(Button::ID::Settings, sf::Vector2f(m_p_application->getWindowSize().x / 2, m_p_application->getWindowSize().y / 2),
 							button_size, "Settings", 26, scale_factor, *m_p_application));
-	m_buttons.push_back(Button(sf::Vector2f(m_p_application->getWindowSize().x / 2, m_p_application->getWindowSize().y / 2 + (button_size.y + button_spacing) * scale_factor),
+	m_buttons.push_back(Button(Button::ID::Exit, sf::Vector2f(m_p_application->getWindowSize().x / 2, m_p_application->getWindowSize().y / 2 + (button_size.y + button_spacing) * scale_factor),
 							button_size, "Exit", 26, scale_factor, *m_p_application));
 }
 

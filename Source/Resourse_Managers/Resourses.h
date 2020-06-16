@@ -13,7 +13,6 @@ enum class Fonts
 	SegoeUI
 };
 
-
 class TextureManager : public ResourseManager<Textures, sf::Texture>
 {
 public:

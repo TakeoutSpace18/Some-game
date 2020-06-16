@@ -1,7 +1,10 @@
+#include <iostream>
+
 #include "Application.h"
 #include "Icon.h"
 #include "States/Splash_screen.h"
 #include "Settings.h"
+#include "Signal.h"
 
 Application::Application()
 {
@@ -113,6 +116,18 @@ void Application::handleEvents()
 		}
 
 		else m_states.front()->input(event);
+	}
+}
+
+void Application::handleSignal(Signal signal)
+{
+	if (signal.type == Signal::ButtonClicked)
+	{
+		if (signal.button.id == Button::ID::Exit)
+		{
+			std::cout << 2;
+			m_window.close();
+		}
 	}
 }
 

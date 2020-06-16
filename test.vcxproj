@@ -30,6 +30,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
+    <ClCompile Include="Source\Signal.cpp" />
     <ClCompile Include="Source\States\Main_menu.cpp" />
     <ClCompile Include="Source\States\Splash_screen.cpp" />
     <ClCompile Include="Source\States\State_Base.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="Source\Resourse_Managers\ResourseManager.h" />
     <ClInclude Include="Source\Resourse_Managers\Resourses.h" />
     <ClInclude Include="Source\Settings.h" />
+    <ClInclude Include="Source\Signal.h" />
     <ClInclude Include="Source\States\Main_menu.h" />
     <ClInclude Include="Source\States\Splash_screen.h" />
     <ClInclude Include="Source\States\State_Base.h" />

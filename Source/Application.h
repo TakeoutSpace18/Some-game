@@ -8,6 +8,7 @@
 #include "Settings.h"
 #include "Tools/FpsCounter.h"
 #include "Resourse_Managers/Resourses.h"
+#include "Signal.h"
 
 class Application
 {
@@ -20,6 +21,7 @@ public:
 	void pushState(std::unique_ptr<State::State_Base> state);
 	void popState();
 	void setView(sf::View view);
+	void handleSignal(Signal signal);
 
 	float                 getScaleFactor();
 	const ResourseHolder& getResourses() const { return m_resourses; }
