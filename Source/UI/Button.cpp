@@ -2,7 +2,7 @@
 #include "../Application.h"
 #include <iostream>
 #include <vector>
-#include "../Signal.h"
+#include "../Signal.hpp"
 
 Button::Button(Button::ID id, sf::Vector2f center, sf::Vector2f size, const std::string& name, unsigned int text_size, float scale_factor, Application& app)
 	: m_p_application(&app), m_name(name), m_id(id)
@@ -22,7 +22,7 @@ Button::Button(Button::ID id, sf::Vector2f center, sf::Vector2f size, const std:
 
 	m_text.setFont(m_p_application->getResourses().fonts.get(Fonts::SegoeUI));
 	m_text.setCharacterSize(text_size * scale_factor);
-	m_text.setFillColor(sf::Color::Black);
+	m_text.setFillColor(text_color);
 	m_text.setString(name);
 	m_text.setOrigin(m_text.getLocalBounds().width / 2 + 2 * scale_factor, m_text.getLocalBounds().height / 2 + 5 * scale_factor);
 	m_text.setPosition(center);
@@ -103,6 +103,19 @@ void Button::update()
 		}
 		else
 			m_shape.setFillColor(m_fade.getCurrentColor());
+}
+
+void Button::setOpacity(sf::Uint8 value)
+{
+	sf::Color col = non_active_fill_color;
+	col.a = value;
+	m_shape.setFillColor(col);
+	col = outline_color;
+	col.a = value;
+	m_shape.setOutlineColor(col);
+	col = text_color;
+	col.a = value;
+	m_text.setFillColor(col);
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -4,7 +4,7 @@
 #include "Icon.h"
 #include "States/Splash_screen.h"
 #include "Settings.h"
-#include "Signal.h"
+#include "Signal.hpp"
 
 Application::Application()
 {
@@ -64,7 +64,7 @@ void Application::runMainLoop()
 		{
 			sf::Time delta = clock.restart();
 			handleEvents();
-			m_window.clear(sf::Color::White);
+			m_window.clear();
 
 			for (int i = 0; i < m_states.size(); i++)
 				m_states[i]->update(delta);
@@ -115,7 +115,7 @@ void Application::handleEvents()
 			}
 		}
 
-		else m_states.front()->input(event);
+		m_states.front()->input(event);
 	}
 }
 
@@ -125,10 +125,10 @@ void Application::handleSignal(Signal signal)
 	{
 		if (signal.button.id == Button::ID::Exit)
 		{
-			std::cout << 2;
 			m_window.close();
 		}
 	}
+	m_states.front()->handleSignal(signal);
 }
 
 float Application::getScaleFactor()

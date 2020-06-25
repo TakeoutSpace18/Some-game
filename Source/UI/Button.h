@@ -6,6 +6,7 @@
 const sf::Color outline_color(117, 117, 117);
 const sf::Color non_active_fill_color(214, 214, 214);
 const sf::Color active_fill_color(166, 166, 166);
+const sf::Color text_color(sf::Color::Black);
 const float press_coef(0.93);
 
 class Application;
@@ -25,6 +26,8 @@ public:
 
 	void input(sf::Event& event, std::vector<Button>& other_buttons);
 	void update();
+
+	void setOpacity(sf::Uint8 value);
 
 	bool isPressed() { return m_isPressed; }
 

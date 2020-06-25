@@ -58,7 +58,8 @@ void State::Splash_screen::update(sf::Time& dt)
 	}
 }
 
-void State::Splash_screen::input(sf::Event& event) {};
+void State::Splash_screen::input(sf::Event& event) {}
+void State::Splash_screen::handleSignal(Signal signal) {}
 
 void State::Splash_screen::render()
 {

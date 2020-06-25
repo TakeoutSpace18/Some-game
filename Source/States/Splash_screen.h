@@ -11,6 +11,7 @@ namespace State
 
 		void update(sf::Time& dt);
 		void input(sf::Event& event);
+		void handleSignal(Signal signal);
 		void render();
 	private:
 		void onWindowResize();

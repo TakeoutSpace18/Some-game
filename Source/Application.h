@@ -8,7 +8,7 @@
 #include "Settings.h"
 #include "Tools/FpsCounter.h"
 #include "Resourse_Managers/Resourses.h"
-#include "Signal.h"
+#include "Signal.hpp"
 
 class Application
 {

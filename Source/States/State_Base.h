@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include "../Signal.hpp"
+
 class Application;
 namespace State
 {
@@ -12,6 +14,7 @@ namespace State
 
 		virtual void update (sf::Time& dt)       = 0;
 		virtual void input  (sf::Event& event)   = 0;
+		virtual void handleSignal(Signal signal) = 0;
 		virtual void render ()                   = 0;
 
 		

@@ -3,18 +3,17 @@
 
 namespace State
 {
-	class Test : public State_Base
+	class Playing : public State_Base
 	{
 	public:
-		Test(Application& app);
+		Playing(Application& app);
 
 		void update(sf::Time& dt);
 		void input(sf::Event& event);
+		void handleSignal(Signal signal);
 		void render();
-
 	private:
-		void onWindowResize() {};
 
-		sf::RectangleShape m_square;
+		void onWindowResize();
 	};
 }

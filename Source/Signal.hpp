@@ -5,7 +5,6 @@
 class Signal
 {
 public:
-
 	struct ButtonSignal 
 	{
 		Button::ID id;
@@ -17,6 +16,7 @@ public:
 	};
 
 	SignalType type;
+
 	union
 	{
 		ButtonSignal button;
