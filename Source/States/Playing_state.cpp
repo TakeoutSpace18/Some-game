@@ -18,6 +18,7 @@ void State::Playing::handleSignal(Signal signal)
 
 void State::Playing::render()
 {
+	m_level.render();
 }
 
 void State::Playing::onWindowResize()

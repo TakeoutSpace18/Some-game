@@ -28,6 +28,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\Gameplay\World\Block.cpp" />
+    <ClCompile Include="Source\Gameplay\World\Level.cpp" />
+    <ClCompile Include="Source\Gameplay\World\TilesetManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\States\Main_menu.cpp" />
@@ -41,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\Gameplay\World\Block.h" />
+    <ClInclude Include="Source\Gameplay\World\Level.h" />
+    <ClInclude Include="Source\Gameplay\World\TilesetManager.h" />
     <ClInclude Include="Source\Icon.h" />
     <ClInclude Include="Source\Resourse_Managers\ResourseManager.h" />
     <ClInclude Include="Source\Resourse_Managers\Resourses.h" />

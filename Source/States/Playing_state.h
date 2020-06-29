@@ -1,5 +1,6 @@
 #pragma once
 #include "State_Base.h"
+#include "../Gameplay/World/Level.h"
 
 namespace State
 {
@@ -15,5 +16,7 @@ namespace State
 	private:
 
 		void onWindowResize();
+
+		Level m_level{*m_p_application};
 	};
 }
