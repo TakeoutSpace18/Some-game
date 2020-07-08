@@ -12,11 +12,12 @@ class TilesetManager
 {
 public:
 	TilesetManager();
+	TilesetManager(short tileset_id) { load(tileset_id); };
 
-	void load(unsigned char tileset_id);
-	Block getBlock(unsigned char id, sf::Vector2f position);
+	void load(short tileset_id);
+	Block getBlock(short id, sf::Vector2f position);
 
 private:
-	std::map<unsigned char, Block_properties> m_properties;
-	ResourseManager<unsigned char, sf::Texture> m_textures;
+	std::map<short, Block_properties> m_properties;
+	ResourseManager<short, sf::Texture> m_textures;
 };

@@ -63,6 +63,8 @@ void Application::runMainLoop()
 		while (m_window.isOpen())
 		{
 			sf::Time delta = clock.restart();
+			m_draw_calls_counter = 0;
+
 			handleEvents();
 			m_window.clear();
 
@@ -72,10 +74,10 @@ void Application::runMainLoop()
 			for (int i = 0; i < m_states.size(); i++)
 				m_states[i]->render();
 		
-			if (m_settings.get<bool>("show_fps"))
+			if (m_settings.get<bool>("show_statistics"))
 			{
-				m_fpscounter.update(delta);
-				m_fpscounter.render();
+				m_statistics.update(delta, m_draw_calls_counter);
+				m_statistics.render();
 			}
 			m_window.display();
 		}
@@ -142,6 +144,7 @@ float Application::getScaleFactor()
 void Application::draw(const sf::Drawable& obj)
 {
 	m_window.draw(obj);
+	m_draw_calls_counter++;
 }
 
 void Application::pushState(std::unique_ptr<State::State_Base> state)

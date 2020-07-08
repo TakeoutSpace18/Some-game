@@ -1,8 +1,8 @@
-#include "FpsCounter.h"
+#include "Statistics.h"
 #include "../Application.h"
 #include "../Resourse_Managers/Resourses.h"
 
-FpsCounter::FpsCounter(Application& app) : m_p_application(&app)
+Statistics::Statistics(Application& app) : m_p_application(&app)
 {
 	m_frames = 0;
 	m_text.setFont(m_p_application->getResourses().fonts.get(Fonts::SegoeUI));
@@ -11,20 +11,22 @@ FpsCounter::FpsCounter(Application& app) : m_p_application(&app)
 	m_text.setFillColor(sf::Color::Black);
 }
 
-void FpsCounter::update(sf::Time delta)
+void Statistics::update(sf::Time delta, unsigned int draw_calls_counter)
 {
 	m_updateTime += delta;
 	m_frames++;
 
 	if (m_updateTime > sf::seconds(1.0f))
 	{
-		m_text.setString("FPS: " + std::to_string(m_frames));
+		m_cur_fps = m_frames;
 		m_frames = 0;
 		m_updateTime -= sf::seconds(1.0f);
 	}
+	
+	m_text.setString("FPS: " + std::to_string(m_cur_fps) + "\nDCpF: " + std::to_string(draw_calls_counter));
 }
 
-void FpsCounter::render()
+void Statistics::render()
 {
 	m_p_application->draw(m_text);
 }

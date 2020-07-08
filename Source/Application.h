@@ -6,7 +6,7 @@
 
 #include "States/State_Base.h"
 #include "Settings.h"
-#include "Tools/FpsCounter.h"
+#include "Tools/Statistics.h"
 #include "Resourse_Managers/Resourses.h"
 #include "Signal.hpp"
 
@@ -37,9 +37,11 @@ private:
 	void toggleFullscreen();
 	void configureWindow();
 
+	unsigned int m_draw_calls_counter;
+
 	ResourseHolder m_resourses;
 	Settings m_settings;
-	FpsCounter m_fpscounter{ *this };
+	Statistics m_statistics{ *this };
 
 	sf::RenderWindow m_window;
 	std::deque<std::unique_ptr<State::State_Base>> m_states;

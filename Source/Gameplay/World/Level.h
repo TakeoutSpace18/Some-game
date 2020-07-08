@@ -16,12 +16,15 @@ class Level
 public:
 	Level(Application& app);
 
-	void load(unsigned char id);
+	void load(short id);
 	void render();
 
 private:
+	sf::Vector2i m_level_size;
 
-	std::vector<Block> m_blocks;
+	std::vector<Block**> m_layers;
+	//std::vector<Block> m_layers;
+
 	TilesetManager m_tileset;
 
 	Application* m_p_application;

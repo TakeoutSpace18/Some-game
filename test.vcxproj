@@ -39,7 +39,7 @@
     <ClCompile Include="Source\States\State_Base.cpp" />
     <ClCompile Include="Source\Tools\ColorFadeManager.cpp" />
     <ClCompile Include="Source\Tools\FadeManager.cpp" />
-    <ClCompile Include="Source\Tools\FpsCounter.cpp" />
+    <ClCompile Include="Source\Tools\Statistics.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +58,7 @@
     <ClInclude Include="Source\States\State_Base.h" />
     <ClInclude Include="Source\Tools\ColorFadeManager.h" />
     <ClInclude Include="Source\Tools\FadeManager.h" />
-    <ClInclude Include="Source\Tools\FpsCounter.h" />
+    <ClInclude Include="Source\Tools\Statistics.h" />
     <ClInclude Include="Source\Tools\json.hpp" />
     <ClInclude Include="Source\UI\Button.h" />
   </ItemGroup>

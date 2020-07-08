@@ -8,52 +8,35 @@
  "margin":0,
  "name":"tileset_1",
  "spacing":0,
- "tilecount":3,
- "tiledversion":"1.3.3",
+ "tilecount":4,
+ "tiledversion":"1.4.1",
  "tileheight":16,
  "tiles":[
         {
          "id":0,
-         "image":"..\/textures\/blocks\/1.png",
+         "image":"..\/textures\/blocks\/block_0.png",
          "imageheight":16,
-         "imagewidth":16,
-         "properties":[
-                {
-                 "name":"isBreakable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"isSolid",
-                 "type":"bool",
-                 "value":true
-                }]
+         "imagewidth":16
         }, 
         {
          "id":1,
-         "image":"..\/textures\/blocks\/2.png",
+         "image":"..\/textures\/blocks\/block_1.png",
          "imageheight":16,
-         "imagewidth":16,
-         "properties":[
-                {
-                 "name":"isSolid",
-                 "type":"bool",
-                 "value":false
-                }]
+         "imagewidth":16
         }, 
         {
          "id":2,
-         "image":"..\/textures\/blocks\/3.png",
+         "image":"..\/textures\/blocks\/block_2.png",
          "imageheight":16,
-         "imagewidth":16,
-         "properties":[
-                {
-                 "name":"isSolid",
-                 "type":"bool",
-                 "value":false
-                }]
+         "imagewidth":16
+        }, 
+        {
+         "id":3,
+         "image":"..\/textures\/blocks\/block_3.png",
+         "imageheight":16,
+         "imagewidth":16
         }],
  "tilewidth":16,
  "type":"tileset",
- "version":1.2
+ "version":1.4
 }
