@@ -17,7 +17,7 @@ public:
 	Application();
 
 	void runMainLoop();
-	void draw(const sf::Drawable& obj);
+	void draw(const sf::Drawable& obj, const sf::RenderStates& states = sf::RenderStates::Default);
 	void pushState(std::unique_ptr<State::State_Base> state);
 	void popState();
 	void setView(sf::View view);

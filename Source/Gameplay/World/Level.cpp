@@ -17,28 +17,40 @@ void Level::load(short level_id)
 
 		std::string source = json_file["tilesets"][0]["source"].get<std::string>();
 		m_tileset = TilesetManager(source[source.length() - 6] - '0');
+		m_renderstates.texture = &m_tileset.getTexture();
 
 		m_level_size = sf::Vector2i(json_file["width"].get<int>(), json_file["height"].get<int>());
+		int block_size = json_file["tileheight"];
 
 		for (auto layer : json_file["layers"])
 		{
 			if (layer["type"] == "tilelayer")
 			{
-				Block** matrix;
-				matrix = new Block * [m_level_size.x];
-				for (int i = 0; i < m_level_size.x; i++)
-					matrix[i] = new Block[m_level_size.y];
+				sf::VertexArray vertices{ sf::Quads, std::size_t(m_level_size.x * m_level_size.y * 4) };
 
-				int block_size = json_file["tileheight"];
-
-				int cur_x = 0, cur_y = 0;
+				int cur_x = 0, cur_y = 0, index = 0;
 
 				for (auto id : layer["data"])
 				{
 					if (id != 0)
 					{
-						matrix[cur_x][cur_y] = m_tileset.getBlock(id - 1, sf::Vector2f(cur_x * block_size, cur_y * block_size));
+						sf::Vertex* quad = &vertices[index];
+
+						quad[0].position = sf::Vector2f(cur_x * block_size, cur_y * block_size);
+						quad[1].position = sf::Vector2f((cur_x + 1) * block_size, cur_y * block_size);
+						quad[2].position = sf::Vector2f((cur_x + 1) * block_size, (cur_y + 1) * block_size);
+						quad[3].position = sf::Vector2f(cur_x * block_size, (cur_y + 1) * block_size);
+
+						sf::Vector2u block_uv = m_tileset.getBlockUV(id - 1);
+
+						quad[0].texCoords = sf::Vector2f(block_uv.x, block_uv.y);
+						quad[1].texCoords = sf::Vector2f(block_uv.x + block_size, block_uv.y);
+						quad[2].texCoords = sf::Vector2f(block_uv.x + block_size, block_uv.y + block_size);
+						quad[3].texCoords = sf::Vector2f(block_uv.x, block_uv.y + block_size);
+
+						index += 4;
 					}
+
 					cur_x++;
 					if (cur_x == m_level_size.x)
 					{
@@ -46,35 +58,8 @@ void Level::load(short level_id)
 						cur_y++;
 					}
 				}
-
-				m_layers.push_back(std::move(matrix));
-
-				//std::vector<Block> blocks;
-
-				//int block_size = json_file["tileheight"];
-
-				//int cur_x = 0, cur_y = 0;
-
-				//int counter = 0;
-
-				//for (auto id : layer["data"])
-				//{
-				//	if (id != 0)
-				//	{
-				//		m_layers.push_back(m_tileset.getBlock(id - 1, sf::Vector2f(cur_x * block_size, cur_y * block_size)));
-				//		counter++;
-				//	}
-				//	cur_x++;
-				//	if (cur_x == m_level_size.x)
-				//	{
-				//		cur_x = 0;
-				//		cur_y++;
-				//	}
-				//}
-				//std::cout << counter << std::endl;
-
-				////m_layers.push_back(std::move(blocks));
-
+				vertices.resize(index);
+				m_layers.push_back(std::move(vertices));
 			}
 		}
 	}
@@ -86,17 +71,6 @@ void Level::render()
 {
 	for (auto layer : m_layers)
 	{
-		for (int x = 0; x < m_level_size.x; x++)
-		{
-			for (int y = 0; y < m_level_size.y; y++)
-			{
-				m_p_application->draw(layer[x][y]);
-			}
-		}
+		m_p_application->draw(layer, m_renderstates);
 	}
-
-	//for (auto layer : m_layers)
-	//{
-	//	m_p_application->draw(layer);
-	//}
 }

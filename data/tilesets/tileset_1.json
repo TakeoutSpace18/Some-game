@@ -1,40 +1,30 @@
-{ "columns":0,
- "grid":
+{ "columns":4,
+ "editorsettings":
     {
-     "height":1,
-     "orientation":"orthogonal",
-     "width":1
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
     },
+ "image":"..\/textures\/tilesets\/tileset_1.png",
+ "imageheight":16,
+ "imagewidth":64,
  "margin":0,
- "name":"tileset_1",
+ "name":"tileset_2",
  "spacing":0,
  "tilecount":4,
  "tiledversion":"1.4.1",
  "tileheight":16,
  "tiles":[
         {
-         "id":0,
-         "image":"..\/textures\/blocks\/block_0.png",
-         "imageheight":16,
-         "imagewidth":16
-        }, 
-        {
          "id":1,
-         "image":"..\/textures\/blocks\/block_1.png",
-         "imageheight":16,
-         "imagewidth":16
-        }, 
-        {
-         "id":2,
-         "image":"..\/textures\/blocks\/block_2.png",
-         "imageheight":16,
-         "imagewidth":16
-        }, 
-        {
-         "id":3,
-         "image":"..\/textures\/blocks\/block_3.png",
-         "imageheight":16,
-         "imagewidth":16
+         "properties":[
+                {
+                 "name":"isSolid",
+                 "type":"bool",
+                 "value":true
+                }]
         }],
  "tilewidth":16,
  "type":"tileset",

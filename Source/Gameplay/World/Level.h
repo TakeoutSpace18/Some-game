@@ -21,12 +21,9 @@ public:
 
 private:
 	sf::Vector2i m_level_size;
-
-	std::vector<Block**> m_layers;
-	//std::vector<Block> m_layers;
-
+	sf::RenderStates m_renderstates;
+	std::vector<sf::VertexArray> m_layers;
 	TilesetManager m_tileset;
-
 	Application* m_p_application;
 };
 

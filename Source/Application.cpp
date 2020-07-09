@@ -141,9 +141,9 @@ float Application::getScaleFactor()
 		return m_settings.get<float>("ui_scale") * 2;
 }
 
-void Application::draw(const sf::Drawable& obj)
+void Application::draw(const sf::Drawable& obj, const sf::RenderStates& states)
 {
-	m_window.draw(obj);
+	m_window.draw(obj, states);
 	m_draw_calls_counter++;
 }
 
