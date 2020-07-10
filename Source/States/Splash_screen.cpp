@@ -4,7 +4,7 @@
 
 State::Splash_screen::Splash_screen(Application& app) : State_Base(app)
 {
-	m_logo.setTexture(m_p_application->getResourses().textures.get(Textures::Logo));
+	m_logo.setTexture(m_p_application->getTexture(Textures::Logo));
 	m_logo.setColor(sf::Color(255, 255, 255, 0));
 	m_background.setFillColor(sf::Color::White);
 	onWindowResize();

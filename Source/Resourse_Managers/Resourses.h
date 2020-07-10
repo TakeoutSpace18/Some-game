@@ -5,7 +5,8 @@
 
 enum class Textures
 {
-	Logo
+	Logo,
+	Tileset
 };
 
 enum class Fonts

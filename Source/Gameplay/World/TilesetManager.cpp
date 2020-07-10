@@ -16,13 +16,13 @@ void TilesetManager::load(short tileset_id)
 		m_columns = json_file["columns"];
 		m_tilesize = json_file["tilewidth"];
 
-		m_texture.loadFromFile("data" + json_file["image"].get<std::string>().erase(0, 2));
+		m_p_application->loadTexture(Textures::Tileset, "data" + json_file["image"].get<std::string>().erase(0, 2));
 
 
-		/*for (auto tile : json_file["tiles"])
+		for (auto tile : json_file["tiles"])
 		{
-			m_textures.load(tile["id"].get<short>(), "data" + tile["image"].get<std::string>().erase(0, 2));
 			Block_properties props;
+
 			for (auto property : tile["properties"])
 			{
 				if (property["value"].get<bool>() == true)
@@ -36,18 +36,28 @@ void TilesetManager::load(short tileset_id)
 				}
 			}
 
-			m_properties.insert(std::make_pair(tile["id"].get<short>(), std::move(props)));*/
+			m_properties.insert(std::make_pair(tile["id"].get<short>(), std::move(props)));
+		}
 	}
 	else
 		throw std::runtime_error("Failed to load tileset" + std::to_string(tileset_id));
 }
 
-Block TilesetManager::getBlock(short id, sf::Vector2f position)
-{
-	return Block(m_textures.get(id), m_properties.find(id)->second, position);
-}
+//Block TilesetManager::getBlock(short id, sf::Vector2f position)
+//{
+//	return Block(m_textures.get(id), m_properties.find(id)->second, position);
+//}
 
 sf::Vector2u TilesetManager::getBlockUV(short id)
 {
 	return sf::Vector2u(id % m_columns * m_tilesize, id / m_columns * m_tilesize);
+}
+
+const Block_properties& TilesetManager::getBlockProperties(short id)
+{
+	auto found = m_properties.find(id);
+	if (found == m_properties.end())
+		return Block_properties();
+	else
+		return found->second;
 }

@@ -12,20 +12,19 @@ using json = nlohmann::json;
 class TilesetManager
 {
 public:
-	TilesetManager(){};
-	TilesetManager(short tileset_id) { load(tileset_id); };
+	TilesetManager(short tileset_id, Application& app) : m_p_application(&app) { load(tileset_id); };
 
 	void load(short tileset_id);
+
 	Block getBlock(short id, sf::Vector2f position);
 	sf::Vector2u getBlockUV(short id);
-
-	const sf::Texture& getTexture() { return m_texture; }
+	const Block_properties& getBlockProperties(short id);
 
 private:
 	std::map<short, Block_properties> m_properties;
 
-	sf::Texture m_texture;
-
 	short m_columns;
 	short m_tilesize;
+
+	Application* m_p_application;
 };

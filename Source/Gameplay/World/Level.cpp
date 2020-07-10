@@ -16,8 +16,8 @@ void Level::load(short level_id)
 		input.close();
 
 		std::string source = json_file["tilesets"][0]["source"].get<std::string>();
-		m_tileset = TilesetManager(source[source.length() - 6] - '0');
-		m_renderstates.texture = &m_tileset.getTexture();
+		TilesetManager tileset = TilesetManager(source[source.length() - 6] - '0', *m_p_application);
+		m_renderstates.texture = &m_p_application->getTexture(Textures::Tileset);
 
 		m_level_size = sf::Vector2i(json_file["width"].get<int>(), json_file["height"].get<int>());
 		int block_size = json_file["tileheight"];
@@ -41,7 +41,7 @@ void Level::load(short level_id)
 						quad[2].position = sf::Vector2f((cur_x + 1) * block_size, (cur_y + 1) * block_size);
 						quad[3].position = sf::Vector2f(cur_x * block_size, (cur_y + 1) * block_size);
 
-						sf::Vector2u block_uv = m_tileset.getBlockUV(id - 1);
+						sf::Vector2u block_uv = tileset.getBlockUV(id - 1);
 
 						quad[0].texCoords = sf::Vector2f(block_uv.x, block_uv.y);
 						quad[1].texCoords = sf::Vector2f(block_uv.x + block_size, block_uv.y);

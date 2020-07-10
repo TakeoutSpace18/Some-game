@@ -23,7 +23,6 @@ private:
 	sf::Vector2i m_level_size;
 	sf::RenderStates m_renderstates;
 	std::vector<sf::VertexArray> m_layers;
-	TilesetManager m_tileset;
 	Application* m_p_application;
 };
 
