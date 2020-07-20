@@ -2,6 +2,8 @@
 
 State::Playing::Playing(Application& app) : State_Base(app)
 {
+	m_level.load(1);
+	onWindowResize();
 }
 
 void State::Playing::update(sf::Time& dt)
@@ -23,4 +25,6 @@ void State::Playing::render()
 
 void State::Playing::onWindowResize()
 {
+	float scale_factor = m_p_application->getScaleFactor();
+	m_level.setScale(scale_factor);
 }

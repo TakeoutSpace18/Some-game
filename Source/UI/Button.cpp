@@ -65,8 +65,6 @@ void Button::input(sf::Event& event, std::vector<Button>& other_buttons)
 				m_shape.setScale(1, 1);
 				m_text.setScale(1, 1);
 
-				std::cout << m_name << std::endl;
-
 				Signal signal;
 				signal.type = Signal::ButtonClicked;
 				signal.button.id = m_id;
