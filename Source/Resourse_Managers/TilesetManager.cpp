@@ -14,9 +14,7 @@ void TilesetManager::load(short tileset_id)
 		input.close();
 
 		m_columns = json_file["columns"];
-		m_tilesize = json_file["tilewidth"];
-		
-		m_p_application->getSettings()["block_size"] = m_tilesize;
+
 		m_p_application->loadTexture(Textures::Tileset, "data" + json_file["image"].get<std::string>().erase(0, 2));
 
 
@@ -58,7 +56,7 @@ void TilesetManager::load(short tileset_id)
 
 sf::Vector2u TilesetManager::getBlockUV(short id)
 {
-	return sf::Vector2u(id % m_columns * m_tilesize, id / m_columns * m_tilesize);
+	return sf::Vector2u(id % m_columns * g_tilesize, id / m_columns * g_tilesize);
 }
 
 const Block_properties& TilesetManager::getBlockProperties(short id)

@@ -8,8 +8,9 @@
 #include "Settings.h"
 #include "Tools/Statistics.h"
 #include "Resourse_Managers/Resourses.h"
-//#include "Resourse_Managers/AnimationManager.h"
 #include "Signal.hpp"
+
+const short g_tilesize = 16;
 
 class Application
 {

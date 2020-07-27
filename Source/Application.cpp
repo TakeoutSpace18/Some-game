@@ -6,9 +6,12 @@
 #include "Settings.h"
 #include "Signal.hpp"
 #include "States/Splash_screen.h"
+#include "Tools/Random.hpp"
 
 Application::Application()
 {
+	Random::init();
+	
 	if (m_settings.get<bool>("is_fullscreen"))
 	{
 		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"), sf::Style::Fullscreen);

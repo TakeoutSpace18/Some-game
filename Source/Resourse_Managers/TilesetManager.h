@@ -29,7 +29,6 @@ private:
 	std::map<short, Block_properties> m_properties;
 
 	short m_columns;
-	short m_tilesize;
 
 	Application* m_p_application;
 };

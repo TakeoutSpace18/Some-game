@@ -15,7 +15,6 @@ public:
 	void update();
 
 private:
-	unsigned short m_block_size;
 	
 	std::vector<Frame>::const_iterator m_cur_frame;
 	time_point<steady_clock> m_start;

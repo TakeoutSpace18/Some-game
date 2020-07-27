@@ -62,6 +62,7 @@
     <ClInclude Include="Source\States\State_Base.h" />
     <ClInclude Include="Source\Tools\ColorFadeManager.h" />
     <ClInclude Include="Source\Tools\FadeManager.h" />
+    <ClInclude Include="Source\Tools\Random.hpp" />
     <ClInclude Include="Source\Tools\Statistics.h" />
     <ClInclude Include="Source\Tools\json.hpp" />
     <ClInclude Include="Source\UI\Button.h" />

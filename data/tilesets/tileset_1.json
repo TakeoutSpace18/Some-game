@@ -29,19 +29,19 @@
         {
          "animation":[
                 {
-                 "duration":170,
+                 "duration":300,
                  "tileid":4
                 }, 
                 {
-                 "duration":170,
+                 "duration":300,
                  "tileid":5
                 }, 
                 {
-                 "duration":170,
+                 "duration":300,
                  "tileid":6
                 }, 
                 {
-                 "duration":170,
+                 "duration":300,
                  "tileid":5
                 }],
          "id":4

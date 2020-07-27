@@ -37,8 +37,7 @@ private:
 		"is_fullscreen"			: false,
 		"show_statistics"		: true,
 		"ui_scale"				: 1,
-		"state_change_duration" : 1,
-		"block_size"			: 16
+		"state_change_duration" : 1
 		})";
 
 	json m_file;
