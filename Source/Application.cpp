@@ -1,10 +1,11 @@
+#include "Application.h"
+
 #include <iostream>
 
-#include "Application.h"
 #include "Icon.h"
-#include "States/Splash_screen.h"
 #include "Settings.h"
 #include "Signal.hpp"
+#include "States/Splash_screen.h"
 
 Application::Application()
 {
@@ -68,11 +69,11 @@ void Application::runMainLoop()
 			handleEvents();
 			m_window.clear();
 
-			for (int i = 0; i < m_states.size(); i++)
-				m_states[i]->update(delta);
+			for (auto &state : m_states)
+				state->update(delta);
 
-			for (int i = 0; i < m_states.size(); i++)
-				m_states[i]->render();
+			for (auto &state : m_states)
+				state->render();
 		
 			if (m_settings.get<bool>("show_statistics"))
 			{

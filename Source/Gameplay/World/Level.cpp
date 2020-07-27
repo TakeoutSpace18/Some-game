@@ -1,6 +1,8 @@
 #include "Level.h"
 #include <iostream>
 
+#include "../../Resourse_Managers/TilesetManager.h"
+
 Level::Level(Application& app) : m_p_application(&app)
 {
 }
@@ -32,7 +34,7 @@ void Level::load(short level_id)
 			}
 		}
 			
-		for (auto layer : json_file["layers"])
+		for (auto &layer : json_file["layers"])
 		{
 			if (layer["type"] == "tilelayer")
 			{
@@ -66,6 +68,11 @@ void Level::load(short level_id)
 						if (tileset.getBlockProperties(id).isSolid)
 						{
 							solid_blocks_map[block_pos.x / block_size][block_pos.y / block_size] = true;
+						}
+
+						if (tileset.getBlockProperties(id).isAnimated)
+						{
+							m_animated_blocks.push_back(AnimatedBlock(id, *quad, *m_p_application));
 						}
 
 					}
@@ -139,17 +146,25 @@ void Level::load(short level_id)
 		throw std::runtime_error("Failed to load level" + std::to_string(level_id));
 }
 
+void Level::update()
+{
+	for (auto &animated_block : m_animated_blocks)
+	{
+		animated_block.update();
+	}
+}
+
 void Level::render()
 {
-	for (auto layer : m_layers)
+	for (auto &layer : m_layers)
 	{
 		m_p_application->draw(layer, m_renderstates);
 	}
 
-	for (auto rect : m_visible_rects)
+	/*for (auto &rect : m_visible_rects)
 	{
 		m_p_application->draw(rect);
-	}
+	}*/
 }
 
 void Level::setScale(float scale)

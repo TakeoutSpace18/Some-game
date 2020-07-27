@@ -1,4 +1,4 @@
-{ "columns":4,
+{ "columns":5,
  "editorsettings":
     {
      "export":
@@ -8,12 +8,12 @@
         }
     },
  "image":"..\/textures\/tilesets\/tileset_1.png",
- "imageheight":16,
- "imagewidth":64,
+ "imageheight":32,
+ "imagewidth":80,
  "margin":0,
  "name":"tileset_2",
  "spacing":0,
- "tilecount":4,
+ "tilecount":10,
  "tiledversion":"1.4.1",
  "tileheight":16,
  "tiles":[
@@ -25,6 +25,26 @@
                  "type":"bool",
                  "value":true
                 }]
+        }, 
+        {
+         "animation":[
+                {
+                 "duration":170,
+                 "tileid":4
+                }, 
+                {
+                 "duration":170,
+                 "tileid":5
+                }, 
+                {
+                 "duration":170,
+                 "tileid":6
+                }, 
+                {
+                 "duration":170,
+                 "tileid":5
+                }],
+         "id":4
         }],
  "tilewidth":16,
  "type":"tileset",

@@ -1,13 +1,11 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <vector>
 #include <fstream>
+#include <vector>
+#include <SFML/Graphics.hpp>
 
-#include "Block.h"
+#include "AnimatedBlock.h"
 #include "../../Application.h"
-#include "../../Resourse_Managers/Resourses.h"
 #include "../../Tools/json.hpp"
-#include "TilesetManager.h"
 
 using json = nlohmann::json;
 
@@ -17,6 +15,7 @@ public:
 	Level(Application& app);
 
 	void load(short id);
+	void update();
 	void render();
 	void setScale(float scale);
 
@@ -25,10 +24,11 @@ private:
 	sf::RenderStates m_renderstates;
 
 	std::vector<sf::VertexArray> m_layers;
-	std::vector<sf::RectangleShape> m_visible_rects;
+	std::vector<AnimatedBlock> m_animated_blocks;
+	
+	std::vector<sf::RectangleShape> m_visible_rects; // DEBUG
 
 	std::vector<sf::FloatRect> m_collision_rects;
 
 	Application* m_p_application;
 };
-

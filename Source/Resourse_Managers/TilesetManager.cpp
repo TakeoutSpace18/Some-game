@@ -15,17 +15,19 @@ void TilesetManager::load(short tileset_id)
 
 		m_columns = json_file["columns"];
 		m_tilesize = json_file["tilewidth"];
-
+		
+		m_p_application->getSettings()["block_size"] = m_tilesize;
 		m_p_application->loadTexture(Textures::Tileset, "data" + json_file["image"].get<std::string>().erase(0, 2));
 
 
-		for (auto tile : json_file["tiles"])
+		for (auto &tile : json_file["tiles"])
 		{
 			Block_properties props;
-
+			std::string animation_name = std::to_string(tile["id"].get<int>());
+			
 			for (auto property : tile["properties"])
 			{
-				if (property["value"].get<bool>() == true)
+				if (property["type"] == "bool" && property["value"].get<bool>() == true)
 				{
 					if (property["name"] == "isSolid")
 						props.isSolid = true;
@@ -34,6 +36,17 @@ void TilesetManager::load(short tileset_id)
 					else if (property["name"] == "isTransparent")
 						props.isTransparent = true;
 				}
+
+				else if (property["type"] == "string" && property["name"] == "animationName")
+				{
+					animation_name = property["value"].get<std::string>();
+				}
+			}
+
+			if (!tile["animation"].is_null())
+			{
+				props.isAnimated = true;
+				m_p_application->loadAnimation(animation_name, tile["animation"], *this);
 			}
 
 			m_properties.insert(std::make_pair(tile["id"].get<short>(), std::move(props)));
@@ -42,11 +55,6 @@ void TilesetManager::load(short tileset_id)
 	else
 		throw std::runtime_error("Failed to load tileset" + std::to_string(tileset_id));
 }
-
-//Block TilesetManager::getBlock(short id, sf::Vector2f position)
-//{
-//	return Block(m_textures.get(id), m_properties.find(id)->second, position);
-//}
 
 sf::Vector2u TilesetManager::getBlockUV(short id)
 {

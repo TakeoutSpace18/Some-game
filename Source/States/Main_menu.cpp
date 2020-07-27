@@ -1,7 +1,8 @@
 #include "Main_menu.h"
+
+#include "Playing_state.h"
 #include "../Application.h"
 #include "../UI/Button.h"
-#include "Playing_state.h"
 
 State::Main_menu::Main_menu(Application& app) : State_Base(app)
 {
@@ -50,8 +51,8 @@ void State::Main_menu::update(sf::Time& dt)
 
 void State::Main_menu::input(sf::Event& event)
 {
-	for (int i = 0; i < m_buttons.size(); i++)
-		m_buttons[i].input(event, m_buttons);
+	for (auto &button : m_buttons)
+		button.input(event, m_buttons);
 }
 
 void State::Main_menu::handleSignal(Signal signal)
@@ -70,6 +71,6 @@ void State::Main_menu::handleSignal(Signal signal)
 void State::Main_menu::render()
 {
 	m_p_application->draw(m_background);
-	for (int i = 0; i < m_buttons.size(); i++)
-		m_p_application->draw(m_buttons[i]);
+	for (auto &button : m_buttons)
+		m_p_application->draw(button);
 }

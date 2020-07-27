@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include "AnimationManager.h"
 #include "ResourseManager.h"
 
 enum class Textures
@@ -34,6 +35,7 @@ public:
 
 struct ResourseHolder
 {
-	TextureManager textures;
-	FontManager    fonts;
+	TextureManager    textures;
+	FontManager       fonts;
+	AnimationManager  animations;
 };

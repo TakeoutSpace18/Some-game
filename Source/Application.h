@@ -8,6 +8,7 @@
 #include "Settings.h"
 #include "Tools/Statistics.h"
 #include "Resourse_Managers/Resourses.h"
+//#include "Resourse_Managers/AnimationManager.h"
 #include "Signal.hpp"
 
 class Application
@@ -31,8 +32,10 @@ public:
 
 	const sf::Texture& getTexture(Textures id) const { return m_resourses.textures.get(id); }
 	const sf::Font&	   getFont   (Fonts id)    const { return m_resourses.fonts.get(id); }
+	const std::vector<Frame>& getAnimation(std::string name) const { return m_resourses.animations.get(name); }
 
 	void loadTexture(Textures id, const std::string& filename) { m_resourses.textures.load(id, filename); }
+	void loadAnimation(const std::string& name, json& animation, TilesetManager& tileset) { m_resourses.animations.load(name, animation, tileset); }
 
 private:
 

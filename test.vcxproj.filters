@@ -45,16 +45,22 @@
     <ClCompile Include="Source\States\Playing_state.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Gameplay\World\Block.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Gameplay\World\Level.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Gameplay\World\TilesetManager.cpp">
+    <ClCompile Include="Source\Tools\Statistics.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tools\Statistics.cpp">
+    <ClCompile Include="Source\Resourse_Managers\TilesetManager.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Resourse_Managers\AnimationManager.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gameplay\AnimationHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gameplay\World\AnimatedBlock.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,16 +107,22 @@
     <ClInclude Include="Source\States\Playing_state.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Gameplay\World\Block.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Gameplay\World\Level.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Gameplay\World\TilesetManager.h">
+    <ClInclude Include="Source\Tools\Statistics.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Tools\Statistics.h">
+    <ClInclude Include="Source\Resourse_Managers\TilesetManager.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Resourse_Managers\AnimationManager.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gameplay\AnimationHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gameplay\World\AnimatedBlock.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

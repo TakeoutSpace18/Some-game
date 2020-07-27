@@ -1,13 +1,19 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include <map>
+#include <SFML/Graphics.hpp>
 
-#include "../../Resourse_Managers/Resourses.h"
-#include "Block.h"
-#include "../../Tools/json.hpp"
-#include "../../Application.h"
+#include "../Application.h"
+#include "../Tools/json.hpp"
 
 using json = nlohmann::json;
+
+struct Block_properties
+{
+	bool isSolid = false;
+	bool isBreakable = false;
+	bool isTransparent = false;
+	bool isAnimated = false;
+};
 
 class TilesetManager
 {
@@ -16,7 +22,6 @@ public:
 
 	void load(short tileset_id);
 
-	Block getBlock(short id, sf::Vector2f position);
 	sf::Vector2u getBlockUV(short id);
 	const Block_properties& getBlockProperties(short id);
 

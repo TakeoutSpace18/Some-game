@@ -8,6 +8,7 @@ State::Playing::Playing(Application& app) : State_Base(app)
 
 void State::Playing::update(sf::Time& dt)
 {
+	m_level.update();
 }
 
 void State::Playing::input(sf::Event& event)
