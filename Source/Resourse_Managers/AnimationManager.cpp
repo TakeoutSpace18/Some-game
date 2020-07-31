@@ -7,7 +7,7 @@ void AnimationManager::load(const std::string& name, json& animation, TilesetMan
 	std::vector<Frame> frames;
 	for (auto &j_frame : animation)
 	{
-		frames.push_back(Frame{milliseconds(j_frame["duration"]), tileset.getBlockUV(j_frame["tileid"])});
+		frames.emplace_back(Frame{milliseconds(j_frame["duration"]), tileset.getBlockUV(j_frame["tileid"])});
 	}
 	m_animations.insert(std::make_pair(name, std::make_unique<std::vector<Frame>>(frames)));
 }

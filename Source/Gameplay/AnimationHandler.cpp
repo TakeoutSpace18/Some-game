@@ -3,7 +3,7 @@
 AnimationHandler::AnimationHandler(Application& app): m_p_application((&app))
 {
 	//Texture size is set to the size of the block by default
-	int texture_size = m_p_application->getSettings()["block_size"];
+	int texture_size = g_tilesize;
 	setTextureSize(sf::Vector2i(texture_size, texture_size));
 }
 

@@ -11,6 +11,7 @@
 #include "Signal.hpp"
 
 const short g_tilesize = 16;
+const short g_pixel_scale_factor = 2;
 
 class Application
 {

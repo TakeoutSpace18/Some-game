@@ -72,7 +72,7 @@ void Level::load(short level_id)
 
 						if (tileset.getBlockProperties(id).isAnimated)
 						{
-							m_animated_blocks.push_back(AnimatedBlock(id, *quad, *m_p_application));
+							m_animated_blocks.emplace_back(AnimatedBlock(id, *quad, *m_p_application));
 						}
 
 					}
@@ -111,7 +111,7 @@ void Level::load(short level_id)
 					} while (solid_blocks_map[x][y]);
 
 					size = sf::Vector2f(x * block_size - pos.x, block_size);
-					m_collision_rects.push_back(sf::FloatRect(pos, size));
+					m_collision_rects.emplace_back(sf::FloatRect(pos, size));
 				}
 			}
 		}
@@ -123,7 +123,7 @@ void Level::load(short level_id)
 				if (solid_blocks_map[x][y])
 				{
 					pos = sf::Vector2f(x, y);
-					pos *= (float)block_size;
+					pos *= static_cast<float>(block_size);
 
 					while (solid_blocks_map[x][y])
 					{	
@@ -133,7 +133,7 @@ void Level::load(short level_id)
 					}
 
 					size = sf::Vector2f(block_size, y * block_size - pos.y);
-					m_collision_rects.push_back(sf::FloatRect(pos, size));
+					m_collision_rects.emplace_back(sf::FloatRect(pos, size));
 				}
 			}
 		}
@@ -171,7 +171,7 @@ void Level::setScale(float scale)
 {
 	m_visible_rects.clear(); //DEBUG//
 
-	scale *= 2;
+	scale *= g_pixel_scale_factor;
 
 	float factor = scale / getScale().x;
 

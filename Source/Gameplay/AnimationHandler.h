@@ -7,12 +7,12 @@
 class AnimationHandler
 {
 public:
-	AnimationHandler(Application& app);;
-	AnimationHandler(sf::Sprite& sprite, Application& app);;
-	AnimationHandler(sf::Sprite& sprite, sf::Vector2i texture_size, Application& app);;
+	AnimationHandler(Application& app);
+	AnimationHandler(sf::Sprite& sprite, Application& app);
+	AnimationHandler(sf::Sprite& sprite, sf::Vector2i texture_size, Application& app);
 	
 	void setSprite(sf::Sprite& sprite) { m_p_sprite = &sprite; };
-	void setTextureSize(sf::Vector2i size);
+	void setTextureSize(sf::Vector2i size); //size of the block by default
 	void setAnimation(std::string& name, bool endless = true);
 
 	void update();
