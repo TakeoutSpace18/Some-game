@@ -1,5 +1,6 @@
 #pragma once
 #include "State_Base.h"
+#include "../Gameplay/Entities/Player.h"
 #include "../Gameplay/World/Level.h"
 
 namespace State
@@ -9,7 +10,7 @@ namespace State
 	public:
 		Playing(Application& app);
 
-		void update(sf::Time& dt);
+		void update(float dt);
 		void input(sf::Event& event);
 		void handleSignal(Signal signal);
 		void render();
@@ -18,5 +19,6 @@ namespace State
 		void onWindowResize();
 
 		Level m_level{*m_p_application};
+		Player m_player;
 	};
 }

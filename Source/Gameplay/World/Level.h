@@ -17,8 +17,11 @@ public:
 	void load(short id);
 	void update();
 	void render();
+	
 	void setScale(float scale);
 
+	std::vector<sf::FloatRect>& getCollisionRects() { return m_collision_rects; }
+	
 private:
 	sf::Vector2i m_level_size;
 	sf::RenderStates m_renderstates;

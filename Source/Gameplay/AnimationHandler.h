@@ -13,7 +13,7 @@ public:
 	
 	void setSprite(sf::Sprite& sprite) { m_p_sprite = &sprite; };
 	void setTextureSize(sf::Vector2i size); //size of the block by default
-	void setAnimation(std::string& name, bool endless = true);
+	void setAnimation(std::string name, bool endless = true);
 
 	void update();
 	
@@ -24,7 +24,7 @@ private:
 	std::vector<Frame>::const_iterator m_cur_frame;
 	time_point<steady_clock> m_start;
 	
-	std::vector<Frame>* m_p_cur_animation;
+	const std::vector<Frame>* m_p_cur_animation;
 	sf::Sprite* m_p_sprite;
 	
 	Application* m_p_application;

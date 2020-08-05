@@ -17,8 +17,8 @@ void Level::load(short level_id)
 		input.close();
 
 		std::string source = json_file["tilesets"][0]["source"].get<std::string>();
-		TilesetManager tileset = TilesetManager(source[source.length() - 6] - '0', *m_p_application);
-		m_renderstates.texture = &m_p_application->getTexture(Textures::Tileset);
+		TilesetManager tileset = TilesetManager(source[source.length() - 6] - '0', Textures::Level_tileset, *m_p_application);
+		m_renderstates.texture = &m_p_application->getTexture(Textures::Level_tileset);
 
 		m_level_size = sf::Vector2i(json_file["width"].get<int>(), json_file["height"].get<int>());
 		int block_size = json_file["tileheight"];
@@ -172,7 +172,6 @@ void Level::setScale(float scale)
 	m_visible_rects.clear(); //DEBUG//
 
 	scale *= g_pixel_scale_factor;
-
 	float factor = scale / getScale().x;
 
 	for (int i = 0; i < m_collision_rects.size(); i++)

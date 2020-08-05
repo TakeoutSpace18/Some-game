@@ -22,7 +22,7 @@ void State::Splash_screen::onWindowResize()
 					   m_p_application->getWindowSize().y / 2 - m_logo.getGlobalBounds().height / 2);
 }
 
-void State::Splash_screen::update(sf::Time& dt)
+void State::Splash_screen::update(float dt)
 {
 	switch (m_mode)
 	{	

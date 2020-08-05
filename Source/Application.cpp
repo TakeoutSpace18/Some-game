@@ -6,6 +6,7 @@
 #include "Settings.h"
 #include "Signal.hpp"
 #include "States/Splash_screen.h"
+#include "States/Playing_state.h"
 #include "Tools/Random.hpp"
 
 Application::Application()
@@ -23,7 +24,7 @@ Application::Application()
 	}
 	
 	configureWindow();
-	pushState(std::make_unique<State::Splash_screen>(*this));
+	pushState(std::make_unique<State::Playing>(*this));
 	runMainLoop();
 }
 
@@ -66,7 +67,7 @@ void Application::runMainLoop()
 
 		while (m_window.isOpen())
 		{
-			sf::Time delta = clock.restart();
+			float delta = clock.restart().asSeconds();
 			m_draw_calls_counter = 0;
 
 			handleEvents();

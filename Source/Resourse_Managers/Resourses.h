@@ -7,7 +7,8 @@
 enum class Textures
 {
 	Logo,
-	Tileset
+	Level_tileset,
+	Main_tileset
 };
 
 enum class Fonts

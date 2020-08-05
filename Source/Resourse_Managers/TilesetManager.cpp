@@ -4,8 +4,10 @@
 #include <fstream>
 #include <iostream>
 
-void TilesetManager::load(short tileset_id)
+void TilesetManager::load(short tileset_id, Textures texture_place)
 {
+	m_properties.clear();
+	
 	std::ifstream input("data\\tilesets\\tileset_" + std::to_string(tileset_id) + ".json");
 	if (input.is_open())
 	{
@@ -15,7 +17,7 @@ void TilesetManager::load(short tileset_id)
 
 		m_columns = json_file["columns"];
 
-		m_p_application->loadTexture(Textures::Tileset, "data" + json_file["image"].get<std::string>().erase(0, 2));
+		m_p_application->loadTexture(texture_place, "data" + json_file["image"].get<std::string>().erase(0, 2));
 
 
 		for (auto &tile : json_file["tiles"])
@@ -47,7 +49,7 @@ void TilesetManager::load(short tileset_id)
 				m_p_application->loadAnimation(animation_name, tile["animation"], *this);
 			}
 
-			m_properties.insert(std::make_pair(tile["id"].get<short>(), std::move(props)));
+			m_properties.insert(std::make_pair(tile["id"].get<short>(), props));
 		}
 	}
 	else
@@ -64,6 +66,5 @@ const Block_properties& TilesetManager::getBlockProperties(short id)
 	auto found = m_properties.find(id);
 	if (found == m_properties.end())
 		return Block_properties();
-	else
-		return found->second;
+	return found->second;
 }

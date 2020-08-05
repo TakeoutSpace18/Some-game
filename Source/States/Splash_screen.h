@@ -9,7 +9,7 @@ namespace State
 	public:
 		Splash_screen(Application& app);
 
-		void update(sf::Time& dt);
+		void update(float dt);
 		void input(sf::Event& event);
 		void handleSignal(Signal signal);
 		void render();

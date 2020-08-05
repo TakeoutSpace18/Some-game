@@ -18,9 +18,9 @@ struct Block_properties
 class TilesetManager
 {
 public:
-	TilesetManager(short tileset_id, Application& app) : m_p_application(&app) { load(tileset_id); };
+	TilesetManager(short tileset_id, Textures texture_place, Application& app) : m_p_application(&app) { load(tileset_id, texture_place); };
 
-	void load(short tileset_id);
+	void load(short tileset_id, Textures texture_place);
 
 	sf::Vector2u getBlockUV(short id);
 	const Block_properties& getBlockProperties(short id);

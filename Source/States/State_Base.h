@@ -12,7 +12,7 @@ namespace State
 		State_Base(Application& app);
 		virtual ~State_Base() {};
 
-		virtual void update (sf::Time& dt)       = 0;
+		virtual void update (float dt)       = 0;
 		virtual void input  (sf::Event& event)   = 0;
 		virtual void handleSignal(Signal signal) = 0;
 		virtual void render ()                   = 0;

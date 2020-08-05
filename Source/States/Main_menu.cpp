@@ -25,7 +25,7 @@ void State::Main_menu::onWindowResize()
 							button_size, "Exit", 26, scale_factor, *m_p_application));
 }
 
-void State::Main_menu::update(sf::Time& dt)
+void State::Main_menu::update(float dt)
 {
 	switch (m_mode)
 	{

@@ -1,4 +1,7 @@
 #include "Statistics.h"
+
+#include <iostream>
+
 #include "../Application.h"
 #include "../Resourse_Managers/Resourses.h"
 
@@ -11,16 +14,16 @@ Statistics::Statistics(Application& app) : m_p_application(&app)
 	m_text.setFillColor(sf::Color::Red);
 }
 
-void Statistics::update(sf::Time delta, unsigned int draw_calls_counter)
+void Statistics::update(float delta, unsigned int draw_calls_counter)
 {
 	m_updateTime += delta;
 	m_frames++;
 
-	if (m_updateTime > sf::seconds(1.0f))
+	if (m_updateTime > 1) // after 1 sec
 	{
 		m_cur_fps = m_frames;
 		m_frames = 0;
-		m_updateTime -= sf::seconds(1.0f);
+		m_updateTime -= 1;
 	}
 	
 	m_text.setString("FPS: " + std::to_string(m_cur_fps) + "\nDCpF: " + std::to_string(draw_calls_counter));
