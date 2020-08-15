@@ -26,18 +26,22 @@ public:
 	void setView(sf::View view);
 	void handleSignal(Signal signal);
 
-	float              getScaleFactor();
-	ResourseHolder&	   getResourses()       { return m_resourses; }
-	Settings&          getSettings()        { return m_settings; }
-	sf::Vector2f       getWindowSize()      { return sf::Vector2f(m_window.getSize().x, m_window.getSize().y); }
-	sf::Vector2i	   getMousePosition()   { return sf::Mouse::getPosition(m_window); }
+	float getScaleFactor();
+	ResourseHolder& getResourses() { return m_resourses; }
+	Settings& getSettings() { return m_settings; }
+	sf::Vector2f getWindowSize() { return sf::Vector2f(m_window.getSize().x, m_window.getSize().y); }
+	sf::Vector2i getMousePosition() { return sf::Mouse::getPosition(m_window); }
 
 	const sf::Texture& getTexture(Textures id) const { return m_resourses.textures.get(id); }
-	const sf::Font&	   getFont   (Fonts id)    const { return m_resourses.fonts.get(id); }
-	const std::vector<Frame>& getAnimation(std::string name) const { return m_resourses.animations.get(name); }
+	const sf::Font& getFont(Fonts id) const { return m_resourses.fonts.get(id); }
+	std::vector<Frame>& getAnimation(std::string name) { return m_resourses.animations.get(name); }
 
 	void loadTexture(Textures id, const std::string& filename) { m_resourses.textures.load(id, filename); }
-	void loadAnimation(const std::string& name, json& animation, TilesetManager& tileset) { m_resourses.animations.load(name, animation, tileset); }
+
+	void loadAnimation(const std::string& name, json& animation, TilesetManager& tileset)
+	{
+		m_resourses.animations.load(name, animation, tileset);
+	}
 
 private:
 
@@ -49,10 +53,8 @@ private:
 
 	ResourseHolder m_resourses;
 	Settings m_settings;
-	Statistics m_statistics{ *this };
+	Statistics m_statistics{*this};
 
 	sf::RenderWindow m_window;
 	std::deque<std::unique_ptr<State::State_Base>> m_states;
-
 };
-

@@ -5,7 +5,7 @@ namespace Random
 {
 	static std::random_device rd;
 	static std::mt19937 engine;
-	
+
 	static void init()
 	{
 		engine = std::mt19937(rd());

@@ -9,12 +9,12 @@ namespace State
 	public:
 		Splash_screen(Application& app);
 
-		void update(float dt);
-		void input(sf::Event& event);
-		void handleSignal(Signal signal);
-		void render();
+		void update(float dt) override;
+		void input(sf::Event& event) override;
+		void handleSignal(Signal signal) override;
+		void render() override;
 	private:
-		void onWindowResize();
+		void onWindowResize() override;
 
 		enum class Mode
 		{

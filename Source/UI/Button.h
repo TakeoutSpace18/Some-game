@@ -22,7 +22,8 @@ public:
 		Exit
 	};
 
-	Button(ID id, sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size, float scale_factor, Application& app);
+	Button(ID id, sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size,
+	       float scale_factor, Application& app);
 
 	void input(sf::Event& event, std::vector<Button>& other_buttons);
 	void update();
@@ -32,7 +33,7 @@ public:
 	bool isPressed() { return m_isPressed; }
 
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	bool m_isActive;
 	bool m_isPressed;

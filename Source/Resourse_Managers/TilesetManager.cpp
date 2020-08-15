@@ -7,7 +7,7 @@
 void TilesetManager::load(short tileset_id, Textures texture_place)
 {
 	m_properties.clear();
-	
+
 	std::ifstream input("data\\tilesets\\tileset_" + std::to_string(tileset_id) + ".json");
 	if (input.is_open())
 	{
@@ -20,11 +20,11 @@ void TilesetManager::load(short tileset_id, Textures texture_place)
 		m_p_application->loadTexture(texture_place, "data" + json_file["image"].get<std::string>().erase(0, 2));
 
 
-		for (auto &tile : json_file["tiles"])
+		for (auto& tile : json_file["tiles"])
 		{
 			Block_properties props;
 			std::string animation_name = std::to_string(tile["id"].get<int>());
-			
+
 			for (auto property : tile["properties"])
 			{
 				if (property["type"] == "bool" && property["value"].get<bool>() == true)

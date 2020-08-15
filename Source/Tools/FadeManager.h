@@ -4,7 +4,9 @@
 class FadeManager
 {
 public:
-	FadeManager() {};
+	FadeManager()
+	{
+	};
 	FadeManager(sf::Time duration);
 	FadeManager(sf::Time duration, int start_val, int target_val);
 

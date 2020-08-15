@@ -18,7 +18,10 @@ struct Block_properties
 class TilesetManager
 {
 public:
-	TilesetManager(short tileset_id, Textures texture_place, Application& app) : m_p_application(&app) { load(tileset_id, texture_place); };
+	TilesetManager(short tileset_id, Textures texture_place, Application& app) : m_p_application(&app)
+	{
+		load(tileset_id, texture_place);
+	};
 
 	void load(short tileset_id, Textures texture_place);
 

@@ -1,8 +1,10 @@
 #include "Player.h"
 
-Player::Player(std::vector<sf::FloatRect>& collision_rects, Application& app) : Entity(collision_rects, "player", app)
+Player::Player(std::vector<sf::FloatRect>& collision_rects, Application& app)
+	: Entity(collision_rects, "player", app)
 {
 	setTexture(Textures::Main_tileset);
+	setTextureSize(sf::Vector2i(14, 31));
 	setPosition(sf::Vector2f(8, 8));
 }
 
@@ -14,5 +16,4 @@ void Player::input(sf::Event& event)
 void Player::update(float dt)
 {
 	Entity::update(dt);
-
 }

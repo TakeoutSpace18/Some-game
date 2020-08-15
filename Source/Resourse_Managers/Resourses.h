@@ -36,7 +36,7 @@ public:
 
 struct ResourseHolder
 {
-	TextureManager    textures;
-	FontManager       fonts;
-	AnimationManager  animations;
+	TextureManager textures;
+	FontManager fonts;
+	AnimationManager animations;
 };

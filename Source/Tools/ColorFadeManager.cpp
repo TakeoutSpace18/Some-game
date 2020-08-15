@@ -1,7 +1,9 @@
 #include "ColorFadeManager.h"
 
 ColorFadeManager::ColorFadeManager(sf::Time duration, sf::Color start_color, sf::Color target_color)
-	: m_duration(duration), m_start_color(start_color), m_target_color(target_color) {}
+	: m_duration(duration), m_start_color(start_color), m_target_color(target_color)
+{
+}
 
 sf::Color ColorFadeManager::getCurrentColor()
 {
@@ -17,5 +19,5 @@ bool ColorFadeManager::isOver()
 {
 	if (m_clock.getElapsedTime() >= m_duration)
 		return true;
-	else return false;
+	return false;
 }

@@ -42,4 +42,3 @@ private:
 
 	json m_file;
 };
-

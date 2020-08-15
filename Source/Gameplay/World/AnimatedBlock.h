@@ -15,7 +15,7 @@ public:
 	void update();
 
 private:
-	
+
 	std::vector<Frame>::const_iterator m_cur_frame;
 	time_point<steady_clock> m_start;
 

@@ -8,23 +8,29 @@
 #include "States/Splash_screen.h"
 #include "States/Playing_state.h"
 #include "Tools/Random.hpp"
+#include "Resourse_Managers/TilesetManager.h"
 
 Application::Application()
 {
 	Random::init();
+
+	// loading main tileset with entities
+	TilesetManager tileset{ 2, Textures::Main_tileset, *this };
 	
 	if (m_settings.get<bool>("is_fullscreen"))
 	{
-		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"), sf::Style::Fullscreen);
+		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"),
+		                sf::Style::Fullscreen);
 	}
 	else
 	{
-		sf::VideoMode videomode(m_settings.get<unsigned int>("cur_win_width"), m_settings.get<unsigned int>("cur_win_height"));
+		sf::VideoMode videomode(m_settings.get<unsigned int>("cur_win_width"),
+		                        m_settings.get<unsigned int>("cur_win_height"));
 		m_window.create(videomode, m_settings.get<std::string>("win_title"));
 	}
-	
+
 	configureWindow();
-	pushState(std::make_unique<State::Playing>(*this));
+	pushState(std::make_unique<State::Splash_screen>(*this));
 	runMainLoop();
 }
 
@@ -41,13 +47,15 @@ void Application::toggleFullscreen()
 	{
 		m_settings["last_win_width"] = m_settings["cur_win_width"];
 		m_settings["last_win_height"] = m_settings["cur_win_height"];
-		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"), sf::Style::Fullscreen);
+		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"),
+		                sf::Style::Fullscreen);
 		m_settings["cur_win_width"] = m_window.getSize().x;
 		m_settings["cur_win_height"] = m_window.getSize().y;
 	}
 	else
 	{
-		sf::VideoMode videomode(m_settings.get<unsigned int>("last_win_width"), m_settings.get<unsigned int>("last_win_height"));
+		sf::VideoMode videomode(m_settings.get<unsigned int>("last_win_width"),
+		                        m_settings.get<unsigned int>("last_win_height"));
 		m_window.create(videomode, m_settings.get<std::string>("win_title"));
 		m_settings["cur_win_width"] = m_settings["last_win_width"];
 		m_settings["cur_win_height"] = m_settings["last_win_height"];
@@ -65,34 +73,34 @@ void Application::runMainLoop()
 {
 	sf::Clock clock;
 
-		while (m_window.isOpen())
+	while (m_window.isOpen())
+	{
+		float delta = clock.restart().asSeconds();
+		m_draw_calls_counter = 0;
+
+		handleEvents();
+		m_window.clear();
+
+		for (auto& state : m_states)
+			state->update(delta);
+
+		for (auto& state : m_states)
+			state->render();
+
+		if (m_settings.get<bool>("show_statistics"))
 		{
-			float delta = clock.restart().asSeconds();
-			m_draw_calls_counter = 0;
-
-			handleEvents();
-			m_window.clear();
-
-			for (auto &state : m_states)
-				state->update(delta);
-
-			for (auto &state : m_states)
-				state->render();
-		
-			if (m_settings.get<bool>("show_statistics"))
-			{
-				m_statistics.update(delta, m_draw_calls_counter);
-				m_statistics.render();
-			}
-			m_window.display();
+			m_statistics.update(delta, m_draw_calls_counter);
+			m_statistics.render();
 		}
-		m_settings.save();
+		m_window.display();
+	}
+	m_settings.save();
 }
 
 void Application::handleEvents()
 {
 	sf::Event event;
-	
+
 	while (m_window.pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
@@ -142,8 +150,7 @@ float Application::getScaleFactor()
 {
 	if (m_window.getSize().x <= sf::VideoMode::getDesktopMode().width / 2)
 		return m_settings.get<float>("ui_scale");
-	else 
-		return m_settings.get<float>("ui_scale") * 2;
+	return m_settings.get<float>("ui_scale") * 2;
 }
 
 void Application::draw(const sf::Drawable& obj, const sf::RenderStates& states)

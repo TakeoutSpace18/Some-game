@@ -17,14 +17,15 @@ void Level::load(short level_id)
 		input.close();
 
 		std::string source = json_file["tilesets"][0]["source"].get<std::string>();
-		TilesetManager tileset = TilesetManager(source[source.length() - 6] - '0', Textures::Level_tileset, *m_p_application);
+		TilesetManager tileset = TilesetManager(source[source.length() - 6] - '0', Textures::Level_tileset,
+		                                        *m_p_application);
 		m_renderstates.texture = &m_p_application->getTexture(Textures::Level_tileset);
 
 		m_level_size = sf::Vector2i(json_file["width"].get<int>(), json_file["height"].get<int>());
 		int block_size = json_file["tileheight"];
 
 		bool** solid_blocks_map;
-		solid_blocks_map = new bool * [m_level_size.x];
+		solid_blocks_map = new bool*[m_level_size.x];
 		for (int i = 0; i < m_level_size.x; i++)
 		{
 			solid_blocks_map[i] = new bool[m_level_size.y];
@@ -33,14 +34,14 @@ void Level::load(short level_id)
 				solid_blocks_map[i][j] = false;
 			}
 		}
-			
-		for (auto &layer : json_file["layers"])
+
+		for (auto& layer : json_file["layers"])
 		{
 			if (layer["type"] == "tilelayer")
 			{
-				sf::VertexArray vertices{ sf::Quads, std::size_t(m_level_size.x * m_level_size.y * 4) };
+				sf::VertexArray vertices{sf::Quads, std::size_t(m_level_size.x * m_level_size.y * 4)};
 
-				sf::Vector2i block_pos{ 0, 0 };
+				sf::Vector2i block_pos{0, 0};
 				int index = 0;
 
 				for (short id : layer["data"])
@@ -74,7 +75,6 @@ void Level::load(short level_id)
 						{
 							m_animated_blocks.emplace_back(AnimatedBlock(id, *quad, *m_p_application));
 						}
-
 					}
 
 					block_pos.x += block_size;
@@ -99,8 +99,8 @@ void Level::load(short level_id)
 			{
 				if (solid_blocks_map[x][y] && solid_blocks_map[x + 1][y])
 				{
-					pos = sf::Vector2f(x,y);
-					pos *= (float)block_size;
+					pos = sf::Vector2f(x, y);
+					pos *= static_cast<float>(block_size);
 
 					do
 					{
@@ -108,7 +108,8 @@ void Level::load(short level_id)
 						x++;
 						if (x == m_level_size.x)
 							break;
-					} while (solid_blocks_map[x][y]);
+					}
+					while (solid_blocks_map[x][y]);
 
 					size = sf::Vector2f(x * block_size - pos.x, block_size);
 					m_collision_rects.emplace_back(sf::FloatRect(pos, size));
@@ -126,7 +127,7 @@ void Level::load(short level_id)
 					pos *= static_cast<float>(block_size);
 
 					while (solid_blocks_map[x][y])
-					{	
+					{
 						y++;
 						if (y == m_level_size.y)
 							break;
@@ -148,7 +149,7 @@ void Level::load(short level_id)
 
 void Level::update()
 {
-	for (auto &animated_block : m_animated_blocks)
+	for (auto& animated_block : m_animated_blocks)
 	{
 		animated_block.update();
 	}
@@ -156,7 +157,7 @@ void Level::update()
 
 void Level::render()
 {
-	for (auto &layer : m_layers)
+	for (auto& layer : m_layers)
 	{
 		m_p_application->draw(layer, m_renderstates);
 	}
@@ -176,13 +177,14 @@ void Level::setScale(float scale)
 
 	for (int i = 0; i < m_collision_rects.size(); i++)
 	{
-		m_collision_rects[i].left   *= factor;
-		m_collision_rects[i].top    *= factor;
-		m_collision_rects[i].width  *= factor;
+		m_collision_rects[i].left *= factor;
+		m_collision_rects[i].top *= factor;
+		m_collision_rects[i].width *= factor;
 		m_collision_rects[i].height *= factor;
 
 		//DEBUG//
-		sf::RectangleShape rect_shape = sf::RectangleShape(sf::Vector2f(m_collision_rects[i].width, m_collision_rects[i].height));
+		sf::RectangleShape rect_shape = sf::RectangleShape(
+			sf::Vector2f(m_collision_rects[i].width, m_collision_rects[i].height));
 		rect_shape.setPosition(m_collision_rects[i].left, m_collision_rects[i].top);
 		rect_shape.setOutlineColor(sf::Color::Red);
 		rect_shape.setFillColor(sf::Color(0, 0, 0, 0));
@@ -191,6 +193,6 @@ void Level::setScale(float scale)
 		//DEBUG//
 	}
 
-	sf::Transformable::setScale(scale, scale);
+	Transformable::setScale(scale, scale);
 	m_renderstates.transform = getTransform();
 }

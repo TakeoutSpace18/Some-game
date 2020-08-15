@@ -4,8 +4,9 @@
 #include <vector>
 #include "../Signal.hpp"
 
-Button::Button(Button::ID id, sf::Vector2f center, sf::Vector2f size, const std::string& name, unsigned int text_size, float scale_factor, Application& app)
-	: m_p_application(&app), m_name(name), m_id(id)
+Button::Button(ID id, sf::Vector2f center, sf::Vector2f size, const std::string& name, unsigned int text_size,
+               float scale_factor, Application& app)
+	: m_id(id), m_name(name), m_p_application(&app)
 {
 	m_isActive = false;
 	m_inFade = false;
@@ -24,7 +25,8 @@ Button::Button(Button::ID id, sf::Vector2f center, sf::Vector2f size, const std:
 	m_text.setCharacterSize(text_size * scale_factor);
 	m_text.setFillColor(text_color);
 	m_text.setString(name);
-	m_text.setOrigin(m_text.getLocalBounds().width / 2 + 2 * scale_factor, m_text.getLocalBounds().height / 2 + 5 * scale_factor);
+	m_text.setOrigin(m_text.getLocalBounds().width / 2 + 2 * scale_factor,
+	                 m_text.getLocalBounds().height / 2 + 5 * scale_factor);
 	m_text.setPosition(center);
 }
 
@@ -32,13 +34,13 @@ void Button::input(sf::Event& event, std::vector<Button>& other_buttons)
 {
 	if (m_rect.contains(sf::Vector2f(m_p_application->getMousePosition())))
 	{
-		bool another_button_pressed{ false };
+		bool another_button_pressed{false};
 		for (int i = 0; i < other_buttons.size(); i++)
 		{
 			if (other_buttons[i].isPressed())
 			{
 				another_button_pressed = true;
-			}				
+			}
 		}
 
 		if (!m_isActive && !another_button_pressed)
@@ -88,7 +90,6 @@ void Button::input(sf::Event& event, std::vector<Button>& other_buttons)
 			m_fade = ColorFadeManager(sf::seconds(0.1), active_fill_color, non_active_fill_color);
 		}
 	}
-
 }
 
 void Button::update()
@@ -96,7 +97,7 @@ void Button::update()
 	if (m_inFade)
 		if (m_fade.isOver())
 		{
-			m_inFade = false;			
+			m_inFade = false;
 			m_shape.setFillColor(m_fade.getFinalColor());
 		}
 		else

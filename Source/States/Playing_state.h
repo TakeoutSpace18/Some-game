@@ -10,15 +10,15 @@ namespace State
 	public:
 		Playing(Application& app);
 
-		void update(float dt);
-		void input(sf::Event& event);
-		void handleSignal(Signal signal);
-		void render();
+		void update(float dt) override;
+		void input(sf::Event& event) override;
+		void handleSignal(Signal signal) override;
+		void render() override;
 	private:
 
-		void onWindowResize();
+		void onWindowResize() override;
 
-		Level m_level{*m_p_application};
+		Level m_level;
 		Player m_player;
 	};
 }

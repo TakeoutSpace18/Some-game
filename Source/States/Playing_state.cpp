@@ -1,11 +1,12 @@
 #include "Playing_state.h"
 #include "../Resourse_Managers/TilesetManager.h"
 
-State::Playing::Playing(Application& app) : State_Base(app)
+State::Playing::Playing(Application& app)
+	: State_Base{app},
+	  m_level{app},
+	  m_player{m_level.getCollisionRects(), *m_p_application}
 {
 	m_level.load(1);
-	TilesetManager tileset{ 2, Textures::Main_tileset, *m_p_application };
-	m_player = Player(m_level.getCollisionRects(), *m_p_application);
 	onWindowResize();
 }
 

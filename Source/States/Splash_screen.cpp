@@ -17,16 +17,16 @@ void State::Splash_screen::onWindowResize()
 	m_background.setSize(m_p_application->getWindowSize());
 	float scale_factor = m_p_application->getScaleFactor();
 	m_logo.setScale(scale_factor, scale_factor);
-	
+
 	m_logo.setPosition(m_p_application->getWindowSize().x / 2 - m_logo.getGlobalBounds().width / 2,
-					   m_p_application->getWindowSize().y / 2 - m_logo.getGlobalBounds().height / 2);
+	                   m_p_application->getWindowSize().y / 2 - m_logo.getGlobalBounds().height / 2);
 }
 
 void State::Splash_screen::update(float dt)
 {
 	switch (m_mode)
-	{	
-	case State::Splash_screen::Mode::FadeIn:
+	{
+	case Mode::FadeIn:
 		if (m_fade.isOver())
 		{
 			m_logo.setColor(sf::Color(255, 255, 255, 255));
@@ -37,16 +37,16 @@ void State::Splash_screen::update(float dt)
 		m_logo.setColor(sf::Color(255, 255, 255, m_fade.getCurrentValue()));
 		break;
 
-	case State::Splash_screen::Mode::Waiting:
+	case Mode::Waiting:
 		if (m_fade.isOver())
 		{
-			m_p_application->pushState(std::make_unique<State::Main_menu>(*m_p_application));
+			m_p_application->pushState(std::make_unique<Main_menu>(*m_p_application));
 			m_fade = FadeManager(sf::seconds(1), 255, 0);
 			m_mode = Mode::FadeOut;
 		}
 		break;
 
-	case State::Splash_screen::Mode::FadeOut:
+	case Mode::FadeOut:
 		if (m_fade.isOver())
 		{
 			m_p_application->popState();
@@ -58,8 +58,13 @@ void State::Splash_screen::update(float dt)
 	}
 }
 
-void State::Splash_screen::input(sf::Event& event) {}
-void State::Splash_screen::handleSignal(Signal signal) {}
+void State::Splash_screen::input(sf::Event& event)
+{
+}
+
+void State::Splash_screen::handleSignal(Signal signal)
+{
+}
 
 void State::Splash_screen::render()
 {

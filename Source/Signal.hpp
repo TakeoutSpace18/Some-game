@@ -4,7 +4,7 @@
 class Signal
 {
 public:
-	struct ButtonSignal 
+	struct ButtonSignal
 	{
 		Button::ID id;
 	};

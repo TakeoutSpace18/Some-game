@@ -22,14 +22,15 @@ struct Frame
 class AnimationManager
 {
 public:
-	AnimationManager() {};
+	AnimationManager()
+	{
+	};
 
 	void load(const std::string& name, json& animation, TilesetManager& tileset);
 
-	const std::vector<Frame>& get(std::string name) const;
+	std::vector<Frame>& get(std::string name);
 
 private:
 
 	std::map<std::string, std::unique_ptr<std::vector<Frame>>> m_animations;
 };
-

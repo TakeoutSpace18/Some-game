@@ -4,7 +4,9 @@
 class ColorFadeManager
 {
 public:
-	ColorFadeManager() {};
+	ColorFadeManager()
+	{
+	};
 	ColorFadeManager(sf::Time duration, sf::Color start_color, sf::Color target_color);
 
 	sf::Color getCurrentColor();
