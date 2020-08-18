@@ -12,6 +12,7 @@ Entity::Entity(std::vector<sf::FloatRect>& collision_rects, std::string name, Ap
 	m_name{name},
 	m_p_collision_rects{&collision_rects}
 {
+	m_sprite.setOrigin(8, 0);
 	m_animation_handler.setAnimation(m_name + "_down-idle");
 }
 
@@ -23,21 +24,29 @@ void Entity::input(sf::Event& event)
 		if (event.key.code == sf::Keyboard::S)
 		{
 			m_targetVelocity.y = m_speed * m_sprite.getScale().x;
+			if (moves_diagonal)
+				m_targetVelocity.y *= static_cast<float>(0.7071);
 			m_animation_handler.setAnimation(m_name + "_down");
 		}
 		else if (event.key.code == sf::Keyboard::W)
 		{
 			m_targetVelocity.y = -m_speed * m_sprite.getScale().x;
+			if (moves_diagonal)
+				m_targetVelocity.y *= static_cast<float>(0.7071);
 			m_animation_handler.setAnimation(m_name + "_up");
 		}
 		else if (event.key.code == sf::Keyboard::A)
 		{
 			m_targetVelocity.x = -m_speed * m_sprite.getScale().x;
-			m_animation_handler.setAnimation(m_name + "_side");
+			if (moves_diagonal)
+				m_targetVelocity.x *= static_cast<float>(0.7071);
+			m_animation_handler.setAnimation(m_name + "_side", true);
 		}
 		else if (event.key.code == sf::Keyboard::D)
 		{
 			m_targetVelocity.x = m_speed * m_sprite.getScale().x;
+			if (moves_diagonal)
+				m_targetVelocity.x *= static_cast<float>(0.7071);
 			m_animation_handler.setAnimation(m_name + "_side");
 		}
 
@@ -52,22 +61,66 @@ void Entity::input(sf::Event& event)
 		if (event.key.code == sf::Keyboard::S && m_targetVelocity.y > 0)
 		{
 			m_targetVelocity.y = 0;
-			m_animation_handler.setAnimation(m_name + "_down-idle");
+			if (m_targetVelocity.x < 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_side", true);
+			}
+			else if (m_targetVelocity.x > 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_side");
+			}
+			else
+			{
+				m_animation_handler.setAnimation(m_name + "_down-idle");
+			}
 		}
 		else if (event.key.code == sf::Keyboard::W && m_targetVelocity.y < 0)
 		{
 			m_targetVelocity.y = 0;
-			m_animation_handler.setAnimation(m_name + "_up-idle");
+			if (m_targetVelocity.x < 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_side", true);
+			}
+			else if (m_targetVelocity.x > 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_side");
+			}
+			else
+			{
+				m_animation_handler.setAnimation(m_name + "_up-idle");
+			}
 		}
 		else if (event.key.code == sf::Keyboard::A && m_targetVelocity.x < 0)
 		{
 			m_targetVelocity.x = 0;
-			m_animation_handler.setAnimation(m_name + "_side-idle");
+			if (m_targetVelocity.y < 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_up");
+			}
+			else if (m_targetVelocity.y > 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_down");
+			}
+			else
+			{
+				m_animation_handler.setAnimation(m_name + "_side-idle", true);
+			}
 		}
 		else if (event.key.code == sf::Keyboard::D && m_targetVelocity.x > 0)
 		{
 			m_targetVelocity.x = 0;
-			m_animation_handler.setAnimation(m_name + "_side-idle");
+			if (m_targetVelocity.y < 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_up");
+			}
+			else if (m_targetVelocity.y > 0)
+			{
+				m_animation_handler.setAnimation(m_name + "_down");
+			}
+			else
+			{
+				m_animation_handler.setAnimation(m_name + "_side-idle");
+			}
 		}
 		if (moves_diagonal && (m_targetVelocity.x == 0 || m_targetVelocity.y == 0))
 		{

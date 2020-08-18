@@ -28,7 +28,7 @@ public:
 
 	void load(const std::string& name, json& animation, TilesetManager& tileset);
 
-	std::vector<Frame>& get(std::string name);
+	const std::vector<Frame>& get(std::string name);
 
 private:
 

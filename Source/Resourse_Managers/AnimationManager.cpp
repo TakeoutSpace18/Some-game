@@ -12,7 +12,7 @@ void AnimationManager::load(const std::string& name, json& animation, TilesetMan
 	m_animations.insert(std::make_pair(name, std::make_unique<std::vector<Frame>>(frames)));
 }
 
-std::vector<Frame>& AnimationManager::get(std::string name)
+const std::vector<Frame>& AnimationManager::get(std::string name)
 {
 	auto found = m_animations.find(name);
 	if (found == m_animations.end())

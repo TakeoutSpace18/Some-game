@@ -34,7 +34,7 @@ public:
 
 	const sf::Texture& getTexture(Textures id) const { return m_resourses.textures.get(id); }
 	const sf::Font& getFont(Fonts id) const { return m_resourses.fonts.get(id); }
-	std::vector<Frame>& getAnimation(std::string name) { return m_resourses.animations.get(name); }
+	const std::vector<Frame>& getAnimation(std::string name) { return m_resourses.animations.get(name); }
 
 	void loadTexture(Textures id, const std::string& filename) { m_resourses.textures.load(id, filename); }
 

@@ -48,7 +48,7 @@ private:
 	float m_direction = toRad<float>(90); // in radians
 
 	float m_speed = 170;
-	float m_acceleration = 0.15; // value from 0 to 1
+	float m_acceleration = 0.35; // value from 0 to 1
 	float m_threshold = 0.2;
 
 	static constexpr float s_ideal_fps = 1.f / 60.f;
