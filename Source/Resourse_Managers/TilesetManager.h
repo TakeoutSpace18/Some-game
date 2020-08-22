@@ -10,6 +10,8 @@ using json = nlohmann::json;
 struct Block_properties
 {
 	bool isSolid = false;
+	bool hasCollision = false;
+	bool hasCustomSize = false;
 	bool isBreakable = false;
 	bool isTransparent = false;
 	bool isAnimated = false;
@@ -26,11 +28,12 @@ public:
 	void load(short tileset_id, Textures texture_place);
 
 	sf::Vector2u getBlockUV(short id);
+	std::vector<sf::IntRect> getBlockCollisions(short id);
 	const Block_properties& getBlockProperties(short id);
 
 private:
 	std::map<short, Block_properties> m_properties;
-
+	std::map<short, std::vector<sf::IntRect>> m_block_collisions;
 	short m_columns;
 
 	Application* m_p_application;

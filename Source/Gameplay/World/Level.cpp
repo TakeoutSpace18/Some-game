@@ -19,6 +19,19 @@ void Level::load(short level_id)
 		std::string source = json_file["tilesets"][0]["source"].get<std::string>();
 		TilesetManager tileset = TilesetManager(source[source.length() - 6] - '0', Textures::Level_tileset,
 		                                        *m_p_application);
+
+		for (auto i = 0; i <= 29; i++)
+		{
+			if (tileset.getBlockProperties(i).hasCollision)
+			{
+				for (auto& rect : tileset.getBlockCollisions(i))
+				{
+					std::cout << rect.left << " " << rect.top << " " << rect.width << " " << rect.height << std::endl;
+				}
+				std::cout << std::endl;
+			}
+		}
+		
 		m_renderstates.texture = &m_p_application->getTexture(Textures::Level_tileset);
 
 		m_level_size = sf::Vector2i(json_file["width"].get<int>(), json_file["height"].get<int>());
@@ -49,7 +62,7 @@ void Level::load(short level_id)
 					if (id != 0)
 					{
 						id--; //tileset ids start with zero
-
+						
 						sf::Vertex* quad = &vertices[index];
 
 						quad[0].position = sf::Vector2f(block_pos.x, block_pos.y);
@@ -66,12 +79,14 @@ void Level::load(short level_id)
 
 						index += 4;
 
-						if (tileset.getBlockProperties(id).isSolid)
+						Block_properties block_properties = tileset.getBlockProperties(id);
+						
+						if (block_properties.isSolid)
 						{
 							solid_blocks_map[block_pos.x / block_size][block_pos.y / block_size] = true;
 						}
 
-						if (tileset.getBlockProperties(id).isAnimated)
+						if (block_properties.isAnimated)
 						{
 							m_animated_blocks.emplace_back(AnimatedBlock(id, *quad, *m_p_application));
 						}

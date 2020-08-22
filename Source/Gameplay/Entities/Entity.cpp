@@ -142,7 +142,6 @@ void Entity::update(float dt)
 		m_currentVelocity.y = 0;
 
 	m_animation_handler.update();
-	std::cout << m_targetVelocity.y << std::endl;
 	m_sprite.move(m_currentVelocity * dt);
 }
 

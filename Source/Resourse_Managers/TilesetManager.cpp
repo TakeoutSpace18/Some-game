@@ -23,8 +23,11 @@ void TilesetManager::load(short tileset_id, Textures texture_place)
 		for (auto& tile : json_file["tiles"])
 		{
 			Block_properties props;
-			std::string animation_name = std::to_string(tile["id"].get<int>());
-
+			
+			short tile_id = tile["id"].get<short>();
+			std::string animation_name = std::to_string(tile_id);
+		
+			
 			for (auto property : tile["properties"])
 			{
 				if (property["type"] == "bool" && property["value"].get<bool>() == true)
@@ -49,7 +52,23 @@ void TilesetManager::load(short tileset_id, Textures texture_place)
 				m_p_application->loadAnimation(animation_name, tile["animation"], *this);
 			}
 
-			m_properties.insert(std::make_pair(tile["id"].get<short>(), props));
+			if (!tile["objectgroup"]["objects"].is_null())
+			{
+				props.hasCollision = true;
+				std::vector<sf::IntRect> collisions;
+				for (auto &object : tile["objectgroup"]["objects"])
+				{
+					collisions.emplace_back(sf::IntRect(
+						round(object["x"].get<float>()),
+						round(object["y"].get<float>()),
+						round(object["width"].get<float>()),
+						round(object["height"].get<float>())
+					));
+				}
+				m_block_collisions.insert(std::make_pair(tile_id, std::move(collisions)));
+			}
+			
+			m_properties.insert(std::make_pair(tile_id, props));
 		}
 	}
 	else
@@ -59,6 +78,11 @@ void TilesetManager::load(short tileset_id, Textures texture_place)
 sf::Vector2u TilesetManager::getBlockUV(short id)
 {
 	return sf::Vector2u(id % m_columns * g_tilesize, id / m_columns * g_tilesize);
+}
+
+std::vector<sf::IntRect> TilesetManager::getBlockCollisions(short id)
+{
+	return m_block_collisions.find(id)->second;
 }
 
 const Block_properties& TilesetManager::getBlockProperties(short id)
