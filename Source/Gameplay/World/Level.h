@@ -2,10 +2,10 @@
 #include <fstream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <nlohmann/json.hpp>
 
 #include "AnimatedBlock.h"
 #include "../../Application.h"
-#include "../../Tools/json.hpp"
 
 using json = nlohmann::json;
 

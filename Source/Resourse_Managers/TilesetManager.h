@@ -1,9 +1,9 @@
 #pragma once
 #include <map>
 #include <SFML/Graphics.hpp>
+#include <nlohmann/json.hpp>
 
 #include "../Application.h"
-#include "../Tools/json.hpp"
 
 using json = nlohmann::json;
 
@@ -29,7 +29,7 @@ public:
 
 	sf::Vector2u getBlockUV(short id);
 	std::vector<sf::IntRect> getBlockCollisions(short id);
-	const Block_properties& getBlockProperties(short id);
+	const Block_properties getBlockProperties(short id);
 
 private:
 	std::map<short, Block_properties> m_properties;

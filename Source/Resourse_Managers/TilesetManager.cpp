@@ -85,7 +85,7 @@ std::vector<sf::IntRect> TilesetManager::getBlockCollisions(short id)
 	return m_block_collisions.find(id)->second;
 }
 
-const Block_properties& TilesetManager::getBlockProperties(short id)
+const Block_properties TilesetManager::getBlockProperties(short id)
 {
 	auto found = m_properties.find(id);
 	if (found == m_properties.end())

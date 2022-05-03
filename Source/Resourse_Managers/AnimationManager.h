@@ -5,7 +5,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "../Tools/json.hpp"
+#include <nlohmann/json.hpp>
 
 
 using json = nlohmann::json;
