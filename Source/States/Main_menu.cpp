@@ -1,84 +1,77 @@
 #include "Main_menu.h"
 
 #include "Playing_state.h"
+#include "../Window.h"
 #include "../Application.h"
 #include "../UI/Button.h"
 
-State::Main_menu::Main_menu(Application& app) : State_Base(app)
-{
-	m_mode = Mode::Active;
-	m_background.setFillColor(sf::Color::White);
-	onWindowResize();
+State::Main_menu::Main_menu(Application& app) : Base(app) {
+    _mode = Mode::Active;
+    _background.setFillColor(sf::Color::White);
+    onWindowResize();
 }
 
-void State::Main_menu::onWindowResize()
-{
-	m_background.setSize(m_p_application->getWindowSize());
+void State::Main_menu::onWindowResize() {
+    _background.setSize(Window::getSize());
 
-	float scale_factor = m_p_application->getScaleFactor();
-	m_buttons.clear();
-	m_buttons.emplace_back(Button(Button::ID::Play,
-	                              sf::Vector2f(m_p_application->getWindowSize().x / 2,
-	                                           m_p_application->getWindowSize().y / 2 - (button_size.y + button_spacing)
-	                                           * scale_factor),
-	                              button_size, "Play", 26, scale_factor, *m_p_application));
-	m_buttons.emplace_back(Button(Button::ID::Settings,
-	                              sf::Vector2f(m_p_application->getWindowSize().x / 2,
-	                                           m_p_application->getWindowSize().y / 2),
-	                              button_size, "Settings", 26, scale_factor, *m_p_application));
-	m_buttons.emplace_back(Button(Button::ID::Exit,
-	                              sf::Vector2f(m_p_application->getWindowSize().x / 2,
-	                                           m_p_application->getWindowSize().y / 2 + (button_size.y + button_spacing)
-	                                           * scale_factor),
-	                              button_size, "Exit", 26, scale_factor, *m_p_application));
+    float scale_factor = _application->computeScaleFactor();
+    _buttons.clear();
+    _buttons.emplace_back(Button(
+        Button::ID::Play,
+        sf::Vector2f(Window::getSize().x / 2,
+                     Window::getSize().y / 2 - (button_size.y + button_spacing) * scale_factor),
+        button_size, "Play", 26, scale_factor, *_application));
+    _buttons.emplace_back(Button(Button::ID::Settings,
+                                 sf::Vector2f(Window::getSize().x / 2, Window::getSize().y / 2),
+                                 button_size, "Settings", 26, scale_factor, *_application));
+    _buttons.emplace_back(Button(
+        Button::ID::Exit,
+        sf::Vector2f(Window::getSize().x / 2,
+                     Window::getSize().y / 2 + (button_size.y + button_spacing) * scale_factor),
+        button_size, "Exit", 26, scale_factor, *_application));
 }
 
-void State::Main_menu::update(float dt)
-{
-	switch (m_mode)
-	{
-	case Mode::Active:
+void State::Main_menu::update(float dt) {
+    switch (_mode) {
+        case Mode::Active:
+            for (int i = 0; i < _buttons.size(); i++) {
+                _buttons[i].update();
+            }
+            break;
 
-		for (int i = 0; i < m_buttons.size(); i++)
-			m_buttons[i].update();
-		break;
-
-	case Mode::FadeOut:
-		if (m_fade.isOver())
-		{
-			m_p_application->popState();
-			break;
-		}
-		sf::Uint8 opacity = m_fade.getCurrentValue();
-		m_background.setFillColor(sf::Color(255, 255, 255, opacity));
-		for (int i = 0; i < m_buttons.size(); i++)
-			m_buttons[i].setOpacity(opacity);
-		break;
-	}
+        case Mode::FadeOut:
+            if (_fade.isOver()) {
+                _application->popState();
+                break;
+            }
+            sf::Uint8 opacity = _fade.getCurrentValue();
+            _background.setFillColor(sf::Color(255, 255, 255, opacity));
+            for (int i = 0; i < _buttons.size(); i++) {
+                _buttons[i].setOpacity(opacity);
+            }
+            break;
+    }
 }
 
-void State::Main_menu::input(sf::Event& event)
-{
-	for (auto& button : m_buttons)
-		button.input(event, m_buttons);
+void State::Main_menu::input(sf::Event& event) {
+    for (auto& button : _buttons) {
+        button.input(event, _buttons);
+    }
 }
 
-void State::Main_menu::handleSignal(Signal signal)
-{
-	if (signal.type == Signal::ButtonClicked)
-	{
-		if (signal.button.id == Button::ID::Play)
-		{
-			m_p_application->pushState(std::make_unique<Playing>(*m_p_application));
-			m_fade = FadeManager(sf::seconds(m_p_application->getSettings().get<int>("state_change_duration")), 255, 0);
-			m_mode = Mode::FadeOut;
-		}
-	}
+void State::Main_menu::handleSignal(Signal signal) {
+    if (signal.type == Signal::ButtonClicked) {
+        if (signal.button.id == Button::ID::Play) {
+            _application->pushState(std::make_unique<Playing>(*_application));
+            _fade = FadeManager(sf::seconds(Settings::get<int>("stateChangeDuration")), 255, 0);
+            _mode = Mode::FadeOut;
+        }
+    }
 }
 
-void State::Main_menu::render()
-{
-	m_p_application->draw(m_background);
-	for (auto& button : m_buttons)
-		m_p_application->draw(button);
+void State::Main_menu::render() {
+    Window::draw(_background);
+    for (auto& button : _buttons) {
+        Window::draw(button);
+    }
 }

@@ -3,41 +3,34 @@
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
-
 using json = nlohmann::json;
 
-class Settings
-{
-public:
-	Settings();
+class Settings {
+   public:
+    static void load();
+    static void loadDefault();
+    static void save();
 
-	void load();
-	void save();
+    static json& get(const char* key);
 
-	json& operator[](const char* key);
+    template <typename T>
+    static T get(const char* key) {
+        return _file[key].get<T>();
+    }
 
-	template <typename T>
-	T get(const char* key)
-	{
-		return m_file[key].get<T>();
-	}
-
-private:
-	const std::string m_path = "data\\settings.json";
-	const std::string m_defaultSettings =
-		R"({
-		"cur_win_width"			: 704,
-		"cur_win_height"		: 396,
-		"last_win_width"		: 704,
-		"last_win_height"		: 396,
-		"min_win_width"			: 704,
-		"min_win_height"		: 396,
-		"win_title"				: "Some-game",
-		"is_fullscreen"			: false,
-		"show_statistics"		: true,
-		"ui_scale"				: 1,
-		"state_change_duration" : 1
+   private:
+    inline static constexpr auto _jsonFilePath = "data\\settings.json";
+    inline static constexpr auto _defaultSettings =
+        R"({
+		"windowedModeWidth"		: 704,
+		"windowedModeHeight"	: 396,
+		"minimalWindowWidth"	: 704,
+		"minimalWindowHeight"	: 396,
+		"isFullscreen"			: false,
+		"showStatistics"		: true,
+		"uiScale"				: 2,
+		"stateChangeDuration" : 1
 		})";
 
-	json m_file;
+    inline static json _file;
 };

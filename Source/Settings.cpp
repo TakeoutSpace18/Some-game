@@ -6,33 +6,26 @@
 
 using json = nlohmann::json;
 
-Settings::Settings()
-{
-	load();
+void Settings::load() {
+    std::ifstream input(_jsonFilePath);
+    if (input.is_open()) {
+        input >> _file;
+        input.close();
+    } else {
+        loadDefault();
+    }
 }
 
-void Settings::load()
-{
-	std::ifstream input(m_path);
-	if (input.is_open())
-	{
-		input >> m_file;
-		input.close();
-	}
-	else
-	{
-		m_file = json::parse(m_defaultSettings);
-	}
+void Settings::loadDefault() {
+    _file = json::parse(_defaultSettings);
 }
 
-void Settings::save()
-{
-	std::ofstream output(m_path);
-	output << std::setw(4) << m_file;
-	output.close();
+void Settings::save() {
+    std::ofstream output(_jsonFilePath);
+    output << std::setw(4) << _file;
+    output.close();
 }
 
-json& Settings::operator[](const char* key)
-{
-	return m_file[key];
+json& Settings::get(const char* key) {
+    return _file[key];
 }

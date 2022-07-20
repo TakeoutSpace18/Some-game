@@ -5,28 +5,26 @@
 
 class Application;
 
-namespace State
-{
-	class State_Base
-	{
-	public:
-		State_Base(Application& app);
+namespace State {
 
-		virtual ~State_Base()
-		{
-		};
+class Base {
+   public:
+    Base(Application& app);
 
-		virtual void update(float dt) = 0;
-		virtual void input(sf::Event& event) = 0;
-		virtual void handleSignal(Signal signal) = 0;
-		virtual void render() = 0;
+    virtual ~Base(){};
 
+    virtual void update(float dt) = 0;
+    virtual void input(sf::Event& event) = 0;
+    virtual void handleSignal(Signal signal) = 0;
+    virtual void render() = 0;
 
-		void setViewSize(sf::View);
-		// вызывается при изменении размера окна. Переопределить при особом управлении камерой.
-	private:
-		virtual void onWindowResize() = 0;
-	protected:
-		Application* m_p_application;
-	};
+    void setViewSize(sf::View);
+    // Is called on window resize event. Overrive if camera is specially
+    // controlled
+   private:
+    virtual void onWindowResize() = 0;
+
+   protected:
+    Application* _application;
+};
 }

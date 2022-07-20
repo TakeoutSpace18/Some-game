@@ -9,29 +9,28 @@
 
 using json = nlohmann::json;
 
-class Level : public sf::Transformable
-{
-public:
-	Level(Application& app);
+class Level : public sf::Transformable {
+   public:
+    Level(Application& app);
 
-	void load(short id);
-	void update();
-	void render();
+    void load(short id);
+    void update();
+    void render();
 
-	void setScale(float scale);
+    void setScale(float scale);
 
-	std::vector<sf::FloatRect>& getCollisionRects() { return m_collision_rects; }
+    std::vector<sf::FloatRect>& getCollisionRects() { return _collision_rects; }
 
-private:
-	sf::Vector2i m_level_size;
-	sf::RenderStates m_renderstates;
+   private:
+    sf::Vector2i _level_size;
+    sf::RenderStates _renderstates;
 
-	std::vector<sf::VertexArray> m_layers;
-	std::vector<AnimatedBlock> m_animated_blocks;
+    std::vector<sf::VertexArray> _layers;
+    std::vector<AnimatedBlock> _animated_blocks;
 
-	std::vector<sf::RectangleShape> m_visible_rects; // DEBUG
+    std::vector<sf::RectangleShape> _visible_rects;  // DEBUG
 
-	std::vector<sf::FloatRect> m_collision_rects;
+    std::vector<sf::FloatRect> _collision_rects;
 
-	Application* m_p_application;
+    Application* _application;
 };

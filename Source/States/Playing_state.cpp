@@ -1,39 +1,33 @@
 #include "Playing_state.h"
+#include "../Window.h"
 #include "../Resourse_Managers/TilesetManager.h"
 
 State::Playing::Playing(Application& app)
-	: State_Base{app},
-	  m_level{app},
-	  m_player{m_level.getCollisionRects(), *m_p_application}
-{
-	m_level.load(1);
-	onWindowResize();
+    : Base{app},
+      _level{app},
+      _player{_level.getCollisionRects(), *_application} {
+    _level.load(1);
+    onWindowResize();
 }
 
-void State::Playing::update(float dt)
-{
-	m_level.update();
-	m_player.update(dt);
+void State::Playing::update(float dt) {
+    _level.update();
+    _player.update(dt);
 }
 
-void State::Playing::input(sf::Event& event)
-{
-	m_player.input(event);
+void State::Playing::input(sf::Event& event) {
+    _player.input(event);
 }
 
-void State::Playing::handleSignal(Signal signal)
-{
+void State::Playing::handleSignal(Signal signal) {}
+
+void State::Playing::render() {
+    _level.render();
+    Window::draw(_player);
 }
 
-void State::Playing::render()
-{
-	m_level.render();
-	m_p_application->draw(m_player);
-}
-
-void State::Playing::onWindowResize()
-{
-	float scale_factor = m_p_application->getScaleFactor();
-	m_level.setScale(scale_factor);
-	m_player.setScale(scale_factor);
+void State::Playing::onWindowResize() {
+    float scale_factor = _application->computeScaleFactor();
+    _level.setScale(scale_factor);
+    _player.setScale(scale_factor);
 }

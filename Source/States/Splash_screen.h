@@ -2,30 +2,24 @@
 #include "State_Base.h"
 #include "../Tools/FadeManager.h"
 
-namespace State
-{
-	class Splash_screen : public State_Base
-	{
-	public:
-		Splash_screen(Application& app);
+namespace State {
+class Splash_screen : public Base {
+   public:
+    Splash_screen(Application& app);
 
-		void update(float dt) override;
-		void input(sf::Event& event) override;
-		void handleSignal(Signal signal) override;
-		void render() override;
-	private:
-		void onWindowResize() override;
+    void update(float dt) override;
+    void input(sf::Event& event) override;
+    void handleSignal(Signal signal) override;
+    void render() override;
 
-		enum class Mode
-		{
-			Waiting,
-			FadeIn,
-			FadeOut
-		};
+   private:
+    void onWindowResize() override;
 
-		Mode m_mode;
-		FadeManager m_fade;
-		sf::Sprite m_logo;
-		sf::RectangleShape m_background;
-	};
+    enum class Mode { Waiting, FadeIn, FadeOut };
+
+    Mode _mode;
+    FadeManager _fade;
+    sf::Sprite _logo;
+    sf::RectangleShape _background;
+};
 }

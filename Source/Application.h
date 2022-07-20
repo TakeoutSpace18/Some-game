@@ -1,60 +1,66 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include <memory>
 #include <deque>
+#include <memory>
 
-#include "States/State_Base.h"
+#include "Resourse_Managers/Resourses.hpp"
 #include "Settings.h"
-#include "Tools/Statistics.h"
-#include "Resourse_Managers/Resourses.h"
 #include "Signal.hpp"
+#include "States/State_Base.h"
+#include "Tools/Statistics.h"
 
 const short g_tilesize = 16;
 const short g_pixel_scale_factor = 2;
 
-class Application
-{
-public:
+class Application {
+   public:
+    Application();
 
-	Application();
+    void draw(const sf::Drawable& obj,
+              const sf::RenderStates& states = sf::RenderStates::Default);
 
-	void runMainLoop();
-	void draw(const sf::Drawable& obj, const sf::RenderStates& states = sf::RenderStates::Default);
-	void pushState(std::unique_ptr<State::State_Base> state);
-	void popState();
-	void setView(sf::View view);
-	void handleSignal(Signal signal);
+    void pushState(std::unique_ptr<State::Base> state);
+    void popState();
+    void handleSignal(Signal signal);
 
-	float getScaleFactor();
-	ResourseHolder& getResourses() { return m_resourses; }
-	Settings& getSettings() { return m_settings; }
-	sf::Vector2f getWindowSize() { return sf::Vector2f(m_window.getSize().x, m_window.getSize().y); }
-	sf::Vector2i getMousePosition() { return sf::Mouse::getPosition(m_window); }
+    float computeScaleFactor();
 
-	const sf::Texture& getTexture(Textures id) const { return m_resourses.textures.get(id); }
-	const sf::Font& getFont(Fonts id) const { return m_resourses.fonts.get(id); }
-	const std::vector<Frame>& getAnimation(std::string name) { return m_resourses.animations.get(name); }
+	// Remove
+    ResourseHolder& getResourses() {
+        return m_resourses;
+    }
 
-	void loadTexture(Textures id, const std::string& filename) { m_resourses.textures.load(id, filename); }
+	// Remove
+    const sf::Texture& getTexture(Textures id) const {
+        return m_resourses.textures.get(id);
+    }
+	// Remove
+    const sf::Font& getFont(Fonts id) const {
+        return m_resourses.fonts.get(id);
+    }
+	// Remove
+    const std::vector<Frame>& getAnimation(std::string name) {
+        return m_resourses.animations.get(name);
+    }
+	// Remove
+    void loadTexture(Textures id, const std::string& filename) {
+        m_resourses.textures.load(id, filename);
+    }
 
-	void loadAnimation(const std::string& name, json& animation, TilesetManager& tileset)
-	{
-		m_resourses.animations.load(name, animation, tileset);
-	}
+	// Remove
+    void loadAnimation(const std::string& name,
+                       json& animation,
+                       TilesetManager& tileset) {
+        m_resourses.animations.load(name, animation, tileset);
+    }
 
-private:
+   private:
+    void runMainLoop();
+    void handleEvents();
 
-	void handleEvents();
-	void toggleFullscreen();
-	void configureWindow();
+    ResourseHolder m_resourses;
+    Statistics _statistics{*this};
 
-	unsigned int m_draw_calls_counter;
-
-	ResourseHolder m_resourses;
-	Settings m_settings;
-	Statistics m_statistics{*this};
-
-	sf::RenderWindow m_window;
-	std::deque<std::unique_ptr<State::State_Base>> m_states;
+    std::deque<std::unique_ptr<State::Base>> _states;
 };

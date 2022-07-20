@@ -1,23 +1,17 @@
 #pragma once
 #include "UI/Button.h"
 
-class Signal
-{
-public:
-	struct ButtonSignal
-	{
-		Button::ID id;
-	};
+class Signal {
+   public:
+    struct ButtonSignal {
+        Button::ID id;
+    };
 
-	enum SignalType
-	{
-		ButtonClicked
-	};
+    enum SignalType { ButtonClicked };
 
-	SignalType type;
+    SignalType type;
 
-	union
-	{
-		ButtonSignal button;
-	};
+    union {
+        ButtonSignal button;
+    };
 };

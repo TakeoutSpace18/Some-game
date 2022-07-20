@@ -1,13 +1,10 @@
 #include "State_Base.h"
 #include "../Application.h"
+#include "../Window.h"
 
-State::State_Base::State_Base(Application& app)
-	: m_p_application(&app)
-{
-}
+State::Base::Base(Application& app) : _application(&app) {}
 
-void State::State_Base::setViewSize(sf::View view)
-{
-	m_p_application->setView(view);
-	onWindowResize();
+void State::Base::setViewSize(sf::View view) {
+    Window::setView(view);
+    onWindowResize();
 }

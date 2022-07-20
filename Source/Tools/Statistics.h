@@ -3,17 +3,22 @@
 
 class Application;
 
-class Statistics
-{
-public:
-	Statistics(Application& app);
+class Statistics {
+   public:
+    Statistics(Application& app);
 
-	void update(float delta, unsigned int draw_calls_counter);
-	void render();
+    void update(float delta);
+    void render();
 
-private:
-	Application* m_p_application;
-	sf::Text m_text;
-	float m_updateTime;
-	unsigned short m_frames, m_cur_fps;
+   private:
+	void setString();
+
+    float _updateTime;
+    uint16_t _frames;
+	uint16_t _curFps;
+
+    sf::Text _text;
+
+	// Remove
+	Application* _application;
 };

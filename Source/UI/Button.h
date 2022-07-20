@@ -11,39 +11,37 @@ const float press_coef(0.93);
 
 class Application;
 
-class Button : public sf::Drawable
-{
-public:
+class Button : public sf::Drawable {
+   public:
+    enum class ID { Play, Settings, Exit };
 
-	enum class ID
-	{
-		Play,
-		Settings,
-		Exit
-	};
+    Button(ID id,
+           sf::Vector2f center,
+           sf::Vector2f size,
+           const std::string& text,
+           unsigned int text_size,
+           float scale_factor,
+           Application& app);
 
-	Button(ID id, sf::Vector2f center, sf::Vector2f size, const std::string& text, unsigned int text_size,
-	       float scale_factor, Application& app);
+    void input(sf::Event& event, std::vector<Button>& other_buttons);
+    void update();
 
-	void input(sf::Event& event, std::vector<Button>& other_buttons);
-	void update();
+    void setOpacity(sf::Uint8 value);
 
-	void setOpacity(sf::Uint8 value);
+    bool isPressed() { return m_isPressed; }
 
-	bool isPressed() { return m_isPressed; }
+   private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    bool m_isActive;
+    bool m_isPressed;
+    bool m_inFade;
 
-	bool m_isActive;
-	bool m_isPressed;
-	bool m_inFade;
-
-	ID m_id;
-	std::string m_name;
-	sf::Text m_text;
-	sf::RectangleShape m_shape;
-	sf::FloatRect m_rect;
-	ColorFadeManager m_fade;
-	Application* m_p_application;
+    ID m_id;
+    std::string m_name;
+    sf::Text m_text;
+    sf::RectangleShape m_shape;
+    sf::FloatRect m_rect;
+    ColorFadeManager m_fade;
+    Application* _application;
 };

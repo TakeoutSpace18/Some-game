@@ -3,33 +3,39 @@
 #include <iostream>
 
 #include "../Application.h"
-#include "../Resourse_Managers/Resourses.h"
+#include "../Window.h"
+#include "../Resourse_Managers/Resourses.hpp"
 
-Statistics::Statistics(Application& app) : m_p_application(&app)
-{
-	m_frames = 0;
-	m_text.setFont(m_p_application->getFont(Fonts::SegoeUI));
-	m_text.setPosition(10, 10);
-	m_text.setCharacterSize(20);
-	m_text.setFillColor(sf::Color::Red);
+Statistics::Statistics(Application& app) : _application(&app) {
+    _frames = 0;
+    _text.setFont(_application->getFont(Fonts::SegoeUI));
+    _text.setPosition(10, 10);
+    _text.setCharacterSize(20);
+    _text.setFillColor(sf::Color::Red);
 }
 
-void Statistics::update(float delta, unsigned int draw_calls_counter)
-{
-	m_updateTime += delta;
-	m_frames++;
-	
-	if (m_updateTime > 1) // after 1 sec
-	{
-		m_cur_fps = m_frames;
-		m_frames = 0;
-		m_updateTime -= 1;
-	}
+void Statistics::update(float delta) {
+    _updateTime += delta;
+    _frames++;
 
-	m_text.setString("FPS: " + std::to_string(m_cur_fps) + "\nDCpF: " + std::to_string(draw_calls_counter));
+    // after 1 sec
+    if (_updateTime > 1) {
+        _curFps = _frames;
+        _frames = 0;
+        _updateTime -= 1;
+    }
+
+    setString();
 }
 
-void Statistics::render()
-{
-	m_p_application->draw(m_text);
+void Statistics::setString() {
+    std::string str = "FPS: ";
+    str += std::to_string(_curFps);
+    str += "\nDCpF: ";
+    str += std::to_string(Window::currentDrawCallsAmount());
+    _text.setString(str);
+}
+
+void Statistics::render() {
+    Window::draw(_text);
 }

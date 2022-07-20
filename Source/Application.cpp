@@ -3,173 +3,95 @@
 #include <iostream>
 
 #include "Icon.h"
+#include "Resourse_Managers/TilesetManager.h"
 #include "Settings.h"
 #include "Signal.hpp"
-#include "States/Splash_screen.h"
 #include "States/Playing_state.h"
+#include "States/Splash_screen.h"
 #include "Tools/Random.hpp"
-#include "Resourse_Managers/TilesetManager.h"
+#include "Window.h"
 
-Application::Application()
-{
-	Random::init();
+Application::Application() {
+    Settings::load();
+    Window::init();
+    Random::init();
 
-	// loading main tileset with entities
-	TilesetManager tileset{ 2, Textures::Main_tileset, *this };
-	
-	if (m_settings.get<bool>("is_fullscreen"))
-	{
-		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"),
-		                sf::Style::Fullscreen);
-	}
-	else
-	{
-		sf::VideoMode videomode(m_settings.get<unsigned int>("cur_win_width"),
-		                        m_settings.get<unsigned int>("cur_win_height"));
-		m_window.create(videomode, m_settings.get<std::string>("win_title"));
-	}
+    // loading main tileset with entities
+    TilesetManager tileset{2, Textures::Main_tileset, *this};
 
-	configureWindow();
-	pushState(std::make_unique<State::Splash_screen>(*this));
-	runMainLoop();
+    pushState(std::make_unique<State::Splash_screen>(*this));
+    runMainLoop();
 }
 
-void Application::configureWindow()
-{
-	m_window.setIcon(icon.width, icon.height, icon.pixel_data);
-	m_window.setKeyRepeatEnabled(false);
-	m_window.setVerticalSyncEnabled(false);
+void Application::runMainLoop() {
+    sf::Clock clock;
+
+    while (Window::isOpen()) {
+        float delta = clock.restart().asSeconds();
+
+        handleEvents();
+        Window::clear();
+
+        for (auto& state : _states)
+            state->update(delta);
+
+        for (auto& state : _states)
+            state->render();
+
+        if (Settings::get("showStatistics")) {
+            _statistics.update(delta);
+            _statistics.render();
+        }
+
+        Window::display();
+    }
+    Settings::save();
 }
 
-void Application::toggleFullscreen()
-{
-	if (!m_settings.get<bool>("is_fullscreen"))
-	{
-		m_settings["last_win_width"] = m_settings["cur_win_width"];
-		m_settings["last_win_height"] = m_settings["cur_win_height"];
-		m_window.create(sf::VideoMode::getDesktopMode(), m_settings.get<std::string>("win_title"),
-		                sf::Style::Fullscreen);
-		m_settings["cur_win_width"] = m_window.getSize().x;
-		m_settings["cur_win_height"] = m_window.getSize().y;
-	}
-	else
-	{
-		sf::VideoMode videomode(m_settings.get<unsigned int>("last_win_width"),
-		                        m_settings.get<unsigned int>("last_win_height"));
-		m_window.create(videomode, m_settings.get<std::string>("win_title"));
-		m_settings["cur_win_width"] = m_settings["last_win_width"];
-		m_settings["cur_win_height"] = m_settings["last_win_height"];
-	}
+void Application::handleEvents() {
+    sf::Event event;
 
-	configureWindow();
-	for (int i = 0; i < m_states.size(); i++)
-	{
-		m_states[i]->setViewSize(m_window.getDefaultView());
-	}
-	m_settings["is_fullscreen"] = !m_settings.get<bool>("is_fullscreen");
+    while (Window::pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
+            Window::close();
+        } else if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::F11) {
+                Window::toggleFullscreen();
+                for (auto& state : _states) {
+                    state->setViewSize(Window::getDefaultView());
+                }
+            }
+        } else if (event.type == sf::Event::Resized) {
+            sf::Vector2f newSize(event.size.width, event.size.height);
+            sf::Vector2f finalSize = Window::setSize(newSize);
+            for (int i = 0; i < _states.size(); i++) {
+                _states[i]->setViewSize(sf::View(sf::FloatRect({0, 0}, finalSize)));
+            }
+        }
+        _states.front()->input(event);
+    }
 }
 
-void Application::runMainLoop()
-{
-	sf::Clock clock;
-
-	while (m_window.isOpen())
-	{
-		float delta = clock.restart().asSeconds();
-		m_draw_calls_counter = 0;
-
-		handleEvents();
-		m_window.clear();
-
-		for (auto& state : m_states)
-			state->update(delta);
-
-		for (auto& state : m_states)
-			state->render();
-
-		if (m_settings.get<bool>("show_statistics"))
-		{
-			m_statistics.update(delta, m_draw_calls_counter);
-			m_statistics.render();
-		}
-		m_window.display();
-	}
-	m_settings.save();
+void Application::handleSignal(Signal signal) {
+    if (signal.type == Signal::ButtonClicked) {
+        if (signal.button.id == Button::ID::Exit) {
+            Window::close();
+        }
+    }
+    _states.front()->handleSignal(signal);
 }
 
-void Application::handleEvents()
-{
-	sf::Event event;
-
-	while (m_window.pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-		{
-			m_window.close();
-		}
-		else if (event.type == sf::Event::KeyPressed)
-		{
-			if (event.key.code == sf::Keyboard::F11)
-			{
-				toggleFullscreen();
-			}
-		}
-		else if (event.type == sf::Event::Resized)
-		{
-			if (event.size.width < m_settings.get<unsigned int>("min_win_width"))
-				event.size.width = m_settings.get<unsigned int>("min_win_width");
-			if (event.size.height < m_settings.get<unsigned int>("min_win_height"))
-				event.size.height = m_settings.get<unsigned int>("min_win_height");
-
-			m_window.setSize(sf::Vector2u(event.size.width, event.size.height));
-			m_settings["cur_win_width"] = event.size.width;
-			m_settings["cur_win_height"] = event.size.height;
-			for (int i = 0; i < m_states.size(); i++)
-			{
-				m_states[i]->setViewSize(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-			}
-		}
-
-		m_states.front()->input(event);
-	}
+float Application::computeScaleFactor() {
+    float UIScale = Settings::get<float>("uiScale");
+    if (Window::getSize().x <= sf::VideoMode::getDesktopMode().width / 2)
+        return UIScale;
+    return UIScale * 2;
 }
 
-void Application::handleSignal(Signal signal)
-{
-	if (signal.type == Signal::ButtonClicked)
-	{
-		if (signal.button.id == Button::ID::Exit)
-		{
-			m_window.close();
-		}
-	}
-	m_states.front()->handleSignal(signal);
+void Application::pushState(std::unique_ptr<State::Base> state) {
+    _states.push_front(std::move(state));
 }
 
-float Application::getScaleFactor()
-{
-	if (m_window.getSize().x <= sf::VideoMode::getDesktopMode().width / 2)
-		return m_settings.get<float>("ui_scale");
-	return m_settings.get<float>("ui_scale") * 2;
-}
-
-void Application::draw(const sf::Drawable& obj, const sf::RenderStates& states)
-{
-	m_window.draw(obj, states);
-	m_draw_calls_counter++;
-}
-
-void Application::pushState(std::unique_ptr<State::State_Base> state)
-{
-	m_states.push_front(std::move(state));
-}
-
-void Application::popState()
-{
-	m_states.pop_back();
-}
-
-void Application::setView(sf::View view)
-{
-	m_window.setView(view);
+void Application::popState() {
+    _states.pop_back();
 }
