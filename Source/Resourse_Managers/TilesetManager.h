@@ -1,9 +1,10 @@
 #pragma once
 #include <map>
+
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
-#include "../Application.h"
+#include "Application.h"
 
 using json = nlohmann::json;
 

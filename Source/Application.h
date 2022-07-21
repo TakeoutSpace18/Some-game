@@ -10,15 +10,11 @@
 #include "States/State_Base.h"
 #include "Tools/Statistics.h"
 
-const short g_tilesize = 16;
-const short g_pixel_scale_factor = 2;
-
 class Application {
    public:
     Application();
 
-    void draw(const sf::Drawable& obj,
-              const sf::RenderStates& states = sf::RenderStates::Default);
+    void draw(const sf::Drawable& obj, const sf::RenderStates& states = sf::RenderStates::Default);
 
     void pushState(std::unique_ptr<State::Base> state);
     void popState();
@@ -26,32 +22,24 @@ class Application {
 
     float computeScaleFactor();
 
-	// Remove
-    ResourseHolder& getResourses() {
-        return m_resourses;
-    }
+    // Remove
+    ResourseHolder& getResourses() { return m_resourses; }
 
-	// Remove
-    const sf::Texture& getTexture(Textures id) const {
-        return m_resourses.textures.get(id);
-    }
-	// Remove
-    const sf::Font& getFont(Fonts id) const {
-        return m_resourses.fonts.get(id);
-    }
-	// Remove
+    // Remove
+    const sf::Texture& getTexture(Textures id) const { return m_resourses.textures.get(id); }
+    // Remove
+    const sf::Font& getFont(Fonts id) const { return m_resourses.fonts.get(id); }
+    // Remove
     const std::vector<Frame>& getAnimation(std::string name) {
         return m_resourses.animations.get(name);
     }
-	// Remove
+    // Remove
     void loadTexture(Textures id, const std::string& filename) {
         m_resourses.textures.load(id, filename);
     }
 
-	// Remove
-    void loadAnimation(const std::string& name,
-                       json& animation,
-                       TilesetManager& tileset) {
+    // Remove
+    void loadAnimation(const std::string& name, json& animation, TilesetManager& tileset) {
         m_resourses.animations.load(name, animation, tileset);
     }
 

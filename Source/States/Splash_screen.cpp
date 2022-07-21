@@ -1,7 +1,8 @@
 #include "Splash_screen.h"
+
 #include "Main_menu.h"
-#include "../Window.h"
-#include "../Application.h"
+#include "Window.h"
+#include "Application.h"
 
 State::Splash_screen::Splash_screen(Application& app) : Base(app) {
     _logo.setTexture(_application->getTexture(Textures::Logo));

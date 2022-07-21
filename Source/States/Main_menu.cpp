@@ -1,9 +1,10 @@
 #include "Main_menu.h"
 
 #include "Playing_state.h"
-#include "../Window.h"
-#include "../Application.h"
-#include "../UI/Button.h"
+#include "Constants.hpp"
+#include "Window.h"
+#include "Application.h"
+#include "UI/Button.h"
 
 State::Main_menu::Main_menu(Application& app) : Base(app) {
     _mode = Mode::Active;
@@ -63,7 +64,7 @@ void State::Main_menu::handleSignal(Signal signal) {
     if (signal.type == Signal::ButtonClicked) {
         if (signal.button.id == Button::ID::Play) {
             _application->pushState(std::make_unique<Playing>(*_application));
-            _fade = FadeManager(sf::seconds(Settings::get<int>("stateChangeDuration")), 255, 0);
+            _fade = FadeManager(sf::seconds(Constants::stateChangeDuration), 255, 0);
             _mode = Mode::FadeOut;
         }
     }

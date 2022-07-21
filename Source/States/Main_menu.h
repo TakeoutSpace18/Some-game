@@ -1,8 +1,9 @@
 #pragma once
 #include <vector>
+
 #include "State_Base.h"
-#include "../UI/Button.h"
-#include "../Tools/FadeManager.h"
+#include "UI/Button.h"
+#include "Tools/FadeManager.h"
 
 const sf::Vector2f button_size(155, 40);
 const int button_spacing(12);

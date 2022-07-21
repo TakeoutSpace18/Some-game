@@ -3,8 +3,8 @@
 #include <map>
 #include <memory>
 #include <vector>
-#include <SFML/Graphics.hpp>
 
+#include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;

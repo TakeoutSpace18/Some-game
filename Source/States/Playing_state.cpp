@@ -1,6 +1,7 @@
 #include "Playing_state.h"
-#include "../Window.h"
-#include "../Resourse_Managers/TilesetManager.h"
+
+#include "Window.h"
+#include "Resourse_Managers/TilesetManager.h"
 
 State::Playing::Playing(Application& app)
     : Base{app},

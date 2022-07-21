@@ -1,6 +1,8 @@
-#include "Entity.h"
-#include "../World/AnimatedBlock.h"
 #include <iostream>
+
+#include "Entity.h"
+#include "Constants.hpp"
+#include "Gameplay/World/AnimatedBlock.h"
 
 inline void Entity::check_collision() {}
 
@@ -119,7 +121,7 @@ void Entity::setSpeed(float speed, bool controlled_entity) {
 }
 
 void Entity::setScale(float scale) {
-    scale *= g_pixel_scale_factor;
+    scale *= Constants::pixelScaleFactor;
     float factor = scale / m_sprite.getScale().x;
 
     m_sprite.setScale(scale, scale);

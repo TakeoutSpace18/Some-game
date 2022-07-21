@@ -1,7 +1,8 @@
 #include "AnimatedBlock.h"
 
-#include "../../Resourse_Managers/TilesetManager.h"
-#include "../../Tools/Random.hpp"
+#include "Resourse_Managers/TilesetManager.h"
+#include "Tools/Random.hpp"
+#include "Constants.hpp"
 
 AnimatedBlock::AnimatedBlock(short id, sf::Vertex& quad, Application& app) : m_p_quad(&quad) {
     m_p_animation = &app.getAnimation(std::to_string(id));
@@ -20,9 +21,11 @@ void AnimatedBlock::update() {
             m_cur_frame = m_p_animation->cbegin();
 
         m_p_quad[0].texCoords = sf::Vector2f(m_cur_frame->uv.x, m_cur_frame->uv.y);
-        m_p_quad[1].texCoords = sf::Vector2f(m_cur_frame->uv.x + g_tilesize, m_cur_frame->uv.y);
-        m_p_quad[2].texCoords =
-            sf::Vector2f(m_cur_frame->uv.x + g_tilesize, m_cur_frame->uv.y + g_tilesize);
-        m_p_quad[3].texCoords = sf::Vector2f(m_cur_frame->uv.x, m_cur_frame->uv.y + g_tilesize);
+        m_p_quad[1].texCoords =
+            sf::Vector2f(m_cur_frame->uv.x + Constants::tileSize, m_cur_frame->uv.y);
+        m_p_quad[2].texCoords = sf::Vector2f(m_cur_frame->uv.x + Constants::tileSize,
+                                             m_cur_frame->uv.y + Constants::tileSize);
+        m_p_quad[3].texCoords =
+            sf::Vector2f(m_cur_frame->uv.x, m_cur_frame->uv.y + Constants::tileSize);
     }
 }

@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "Application.h"
+﻿#include "Application.h"
 
 int main() {
     Application app;

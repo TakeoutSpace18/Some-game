@@ -4,6 +4,7 @@ project(Some-game VERSION 0.0.1)
 set(TARGET some-game)
 file(GLOB_RECURSE Some-game_SRC "Source/*")
 add_executable(${TARGET} ${Some-game_SRC})
+target_include_directories(${TARGET} PRIVATE "Source")
 
 # Nlohmann_json
 target_sources(${TARGET} PRIVATE "../libs/nlohmann_json/single_include/nlohmann/json.hpp")

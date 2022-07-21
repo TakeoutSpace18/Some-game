@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
@@ -29,7 +30,6 @@ class Settings {
 		"isFullscreen"			: false,
 		"showStatistics"		: true,
 		"uiScale"				: 2,
-		"stateChangeDuration" : 1
 		})";
 
     inline static json _file;

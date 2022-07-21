@@ -1,4 +1,5 @@
 #include "Window.h"
+
 #include "Constants.hpp"
 #include "Settings.h"
 #include "Icon.h"

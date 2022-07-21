@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "../AnimationHandler.h"
-#include "../../Tools/Math.hpp"
+#include "Gameplay/AnimationHandler.h"
+#include "Tools/Math.hpp"
 
 enum class Direction { LEFT, RIGHT, UP, DOWN };
 

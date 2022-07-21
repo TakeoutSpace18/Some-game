@@ -5,7 +5,7 @@
 #include <nlohmann/json.hpp>
 
 #include "AnimatedBlock.h"
-#include "../../Application.h"
+#include "Application.h"
 
 using json = nlohmann::json;
 

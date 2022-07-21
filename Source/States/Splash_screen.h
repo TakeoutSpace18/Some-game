@@ -1,6 +1,6 @@
 #pragma once
 #include "State_Base.h"
-#include "../Tools/FadeManager.h"
+#include "Tools/FadeManager.h"
 
 namespace State {
 class Splash_screen : public Base {

@@ -1,8 +1,10 @@
 #include "Level.h"
+
 #include <iostream>
 
-#include "../../Resourse_Managers/TilesetManager.h"
-#include "../../Window.h"
+#include "Resourse_Managers/TilesetManager.h"
+#include "Constants.hpp"
+#include "Window.h"
 
 Level::Level(Application& app) : _application(&app) {}
 
@@ -161,7 +163,7 @@ void Level::render() {
 void Level::setScale(float scale) {
     _visible_rects.clear();  // DEBUG//
 
-    scale *= g_pixel_scale_factor;
+    scale *= Constants::pixelScaleFactor;
     float factor = scale / getScale().x;
 
     for (int i = 0; i < _collision_rects.size(); i++) {

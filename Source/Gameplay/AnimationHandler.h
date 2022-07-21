@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
 
-#include "../Application.h"
-#include "../Resourse_Managers/AnimationManager.h"
+#include "Application.h"
+#include "Resourse_Managers/AnimationManager.h"
 
 class AnimationHandler {
    public:

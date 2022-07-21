@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <chrono>
 
-#include "../../Application.h"
-#include "../../Resourse_Managers/AnimationManager.h"
+#include "Application.h"
+#include "Resourse_Managers/AnimationManager.h"
 
 using namespace std::chrono;
 

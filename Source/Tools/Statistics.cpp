@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "../Application.h"
-#include "../Window.h"
-#include "../Resourse_Managers/Resourses.hpp"
+#include "Application.h"
+#include "Window.h"
+#include "Resourse_Managers/Resourses.hpp"
 
 Statistics::Statistics(Application& app) : _application(&app) {
     _frames = 0;

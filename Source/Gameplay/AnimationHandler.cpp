@@ -2,10 +2,12 @@
 
 #include <iostream>
 
+#include "Constants.hpp"
+
 AnimationHandler::AnimationHandler(sf::Sprite& sprite, Application& app)
     : m_p_sprite(&sprite), _application(&app) {
     // Texture size is set to the size of the block by default
-    setTextureSize(sf::Vector2i(g_tilesize, g_tilesize));
+    setTextureSize(sf::Vector2i(Constants::tileSize, Constants::tileSize));
 }
 
 AnimationHandler::AnimationHandler(sf::Sprite& sprite, sf::Vector2i texture_size, Application& app)

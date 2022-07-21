@@ -1,10 +1,11 @@
+#include "Button.h"
+
 #include <iostream>
 #include <vector>
 
-#include "Button.h"
-#include "../Window.h"
-#include "../Application.h"
-#include "../Signal.hpp"
+#include "Window.h"
+#include "Application.h"
+#include "Signal.hpp"
 
 Button::Button(ID id,
                sf::Vector2f center,

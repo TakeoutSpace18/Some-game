@@ -1,8 +1,9 @@
-#include "TilesetManager.h"
-
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
+
+#include "TilesetManager.h"
+#include "Constants.hpp"
 
 void TilesetManager::load(short tileset_id, Textures texture_place) {
     m_properties.clear();
@@ -62,7 +63,7 @@ void TilesetManager::load(short tileset_id, Textures texture_place) {
 }
 
 sf::Vector2u TilesetManager::getBlockUV(short id) {
-    return sf::Vector2u(id % m_columns * g_tilesize, id / m_columns * g_tilesize);
+    return sf::Vector2u(id % m_columns * Constants::tileSize, id / m_columns * Constants::tileSize);
 }
 
 std::vector<sf::IntRect> TilesetManager::getBlockCollisions(short id) {

@@ -1,7 +1,7 @@
 #pragma once
 #include "State_Base.h"
-#include "../Gameplay/Entities/Player.h"
-#include "../Gameplay/World/Level.h"
+#include "Gameplay/Entities/Player.h"
+#include "Gameplay/World/Level.h"
 
 namespace State {
 class Playing : public Base {

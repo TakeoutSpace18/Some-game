@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "../Signal.hpp"
+#include "Signal.hpp"
 
 class Application;
 

@@ -1,13 +1,12 @@
 #pragma once
-
-constexpr float PI = 3.14159265f;
+#include "Constants.hpp"
 
 template <typename T>
 T toRad(T degrees) {
-    return degrees * PI / 180;
+    return degrees * Constants::pi / 180;
 }
 
 template <typename T>
 T toDeg(T radians) {
-    return (radians * 180) / PI;
+    return (radians * 180) / Constants::pi;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "../Tools/ColorFadeManager.h"
+#include "Tools/ColorFadeManager.h"
 
 const sf::Color outline_color(117, 117, 117);
 const sf::Color non_active_fill_color(214, 214, 214);

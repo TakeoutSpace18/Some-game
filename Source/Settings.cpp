@@ -1,8 +1,8 @@
+#include "Settings.h"
+
 #include <fstream>
 #include <iomanip>
 #include <nlohmann/json.hpp>
-
-#include "Settings.h"
 
 using json = nlohmann::json;
 
