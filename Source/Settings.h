@@ -29,7 +29,7 @@ class Settings {
 		"minimalWindowHeight"	: 396,
 		"isFullscreen"			: false,
 		"showStatistics"		: true,
-		"uiScale"				: 2,
+		"uiScale"				: 2
 		})";
 
     inline static json _file;

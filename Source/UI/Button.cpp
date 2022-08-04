@@ -37,7 +37,7 @@ Button::Button(ID id,
     m_text.setPosition(center - sf::Vector2f(0, 3 * scale_factor));
 }
 
-void Button::input(sf::Event& event, std::vector<Button>& other_buttons) {
+void Button::input(const sf::Event& event, const std::vector<Button>& other_buttons) {
     if (m_rect.contains(sf::Vector2f(Window::getMousePosition()))) {
         bool another_button_pressed{false};
         for (int i = 0; i < other_buttons.size(); i++) {

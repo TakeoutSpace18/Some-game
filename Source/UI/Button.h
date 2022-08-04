@@ -23,12 +23,12 @@ class Button : public sf::Drawable {
            float scale_factor,
            Application& app);
 
-    void input(sf::Event& event, std::vector<Button>& other_buttons);
+    void input(const sf::Event& event, const std::vector<Button>& other_buttons);
     void update();
 
     void setOpacity(sf::Uint8 value);
 
-    bool isPressed() { return m_isPressed; }
+    bool isPressed() const { return m_isPressed; }
 
    private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

@@ -4,11 +4,11 @@
 #include "Resourse_Managers/TilesetManager.h"
 
 State::Playing::Playing(Application& app)
-    : Base{app},
+    : Base(app),
       _level{app},
       _player{_level.getCollisionRects(), *_application} {
     _level.load(1);
-    onWindowResize();
+    resize(Window::getSize());
 }
 
 void State::Playing::update(float dt) {
@@ -16,7 +16,7 @@ void State::Playing::update(float dt) {
     _player.update(dt);
 }
 
-void State::Playing::input(sf::Event& event) {
+void State::Playing::handleEvents(const sf::Event& event) {
     _player.input(event);
 }
 
@@ -27,8 +27,8 @@ void State::Playing::render() {
     Window::draw(_player);
 }
 
-void State::Playing::onWindowResize() {
-    float scale_factor = _application->computeScaleFactor();
+void State::Playing::resize(sf::Vector2f newSize) {
+    float scale_factor = Window::getScaleFactor();
     _level.setScale(scale_factor);
     _player.setScale(scale_factor);
 }

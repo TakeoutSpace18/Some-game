@@ -1,12 +1,13 @@
 #pragma once
+#include <memory>
+
 #include "State_Base.h"
-#include "Gameplay/Entities/Player.h"
-#include "Gameplay/World/Level.h"
+#include "UI/Elements.hpp"
 
 namespace State {
-class Playing : public Base {
+class Test : public Base {
    public:
-    Playing(Application& app);
+    Test(Application& app);
 
     void update(float dt) override;
     void handleEvents(const sf::Event& event) override;
@@ -16,8 +17,7 @@ class Playing : public Base {
     void resize(sf::Vector2f newSize) override;
 
    private:
-    Level _level;
-    Player _player;
+    EmptyElement _canvas;
 };
 
 } // namespace State

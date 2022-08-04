@@ -8,13 +8,13 @@ class Splash_screen : public Base {
     Splash_screen(Application& app);
 
     void update(float dt) override;
-    void input(sf::Event& event) override;
+    void handleEvents(const sf::Event& event) override;
     void handleSignal(Signal signal) override;
     void render() override;
 
-   private:
-    void onWindowResize() override;
+    void resize(sf::Vector2f newSize) override;
 
+   private:
     enum class Mode { Waiting, FadeIn, FadeOut };
 
     Mode _mode;
@@ -22,4 +22,5 @@ class Splash_screen : public Base {
     sf::Sprite _logo;
     sf::RectangleShape _background;
 };
-}
+
+}  // namespace State

@@ -14,18 +14,19 @@ class Main_menu : public Base {
     Main_menu(Application& app);
 
     void update(float dt) override;
-    void input(sf::Event& event) override;
+    void handleEvents(const sf::Event& event) override;
     void handleSignal(Signal signal) override;
     void render() override;
 
+    void resize(sf::Vector2f newSize) override;
+
    private:
     enum class Mode { Active, FadeOut };
-
-    void onWindowResize() override;
 
     Mode _mode;
     FadeManager _fade;
     std::vector<Button> _buttons;
     sf::RectangleShape _background;
 };
-}
+
+} // namespace State

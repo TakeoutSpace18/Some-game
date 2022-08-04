@@ -8,18 +8,18 @@ State::Splash_screen::Splash_screen(Application& app) : Base(app) {
     _logo.setTexture(_application->getTexture(Textures::Logo));
     _logo.setColor(sf::Color(255, 255, 255, 0));
     _background.setFillColor(sf::Color::White);
-    onWindowResize();
+    resize(Window::getSize());
     _mode = Mode::FadeIn;
     _fade = FadeManager(sf::seconds(1), 0, 255);
 }
 
-void State::Splash_screen::onWindowResize() {
-    _background.setSize(Window::getSize());
-    float scale_factor = _application->computeScaleFactor();
+void State::Splash_screen::resize(sf::Vector2f newSize) {
+    float scale_factor = Window::getScaleFactor();
+    _background.setSize(newSize);
     _logo.setScale(scale_factor, scale_factor);
 
-    _logo.setPosition(Window::getSize().x / 2 - _logo.getGlobalBounds().width / 2,
-                      Window::getSize().y / 2 - _logo.getGlobalBounds().height / 2);
+    _logo.setPosition(newSize.x / 2 - _logo.getGlobalBounds().width / 2,
+                      newSize.y / 2 - _logo.getGlobalBounds().height / 2);
 }
 
 void State::Splash_screen::update(float dt) {
@@ -53,7 +53,7 @@ void State::Splash_screen::update(float dt) {
     }
 }
 
-void State::Splash_screen::input(sf::Event& event) {}
+void State::Splash_screen::handleEvents(const sf::Event& event) {}
 
 void State::Splash_screen::handleSignal(Signal signal) {}
 

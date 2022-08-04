@@ -20,8 +20,6 @@ class Application {
     void popState();
     void handleSignal(Signal signal);
 
-    float computeScaleFactor();
-
     // Remove
     ResourseHolder& getResourses() { return m_resourses; }
 

@@ -8,9 +8,8 @@ enum class Direction { LEFT, RIGHT, UP, DOWN };
 class Entity : public sf::Drawable {
    public:
     Entity(std::vector<sf::FloatRect>& collision_rects, std::string name, Application& app);
-    ;
 
-    void input(sf::Event& event);  // call if entity is controlled by player
+    void input(const sf::Event& event);  // call if entity is controlled by player
     void update(float dt);
     inline void check_collision();
 

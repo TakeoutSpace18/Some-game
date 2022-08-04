@@ -5,8 +5,9 @@
 #include "Icon.h"
 
 void Window::init() {
-    createWindow();
     _drawCallsCounter = 0;
+    createWindow();
+    computeScaleFactor();
 }
 
 void Window::createWindow() {
@@ -24,7 +25,7 @@ void Window::createWindow() {
     _renderWindow.setVerticalSyncEnabled(false);
 }
 
-void Window::draw(sf::Drawable& drawable, const sf::RenderStates& states) {
+void Window::draw(const sf::Drawable& drawable, const sf::RenderStates& states) {
     _renderWindow.draw(drawable, states);
     _drawCallsCounter++;
 }
@@ -55,7 +56,7 @@ void Window::close() {
     _renderWindow.close();
 }
 
-sf::Vector2f Window::setSize(const sf::Vector2f& size) {
+sf::Vector2f Window::checkSizeLimits(const sf::Vector2f& size) {
     sf::Vector2f finalSize;
     if (size.x < Settings::get<uint32_t>("minimalWindowWidth")) {
         finalSize.x = Settings::get<uint32_t>("minimalWindowWidth");
@@ -67,18 +68,31 @@ sf::Vector2f Window::setSize(const sf::Vector2f& size) {
     } else {
         finalSize.y = size.y;
     }
-    Settings::get("windowedModeWidth") = size.x;
-    Settings::get("windowedModeHeight") = size.y;
-    _renderWindow.setSize(sf::Vector2u(finalSize.x, finalSize.y));
+
+    Settings::get("windowedModeWidth") = finalSize.x;
+    Settings::get("windowedModeHeight") = finalSize.y;
+
     return finalSize;
 }
 
-void Window::setView(sf::View view) {
+sf::Vector2f Window::setSize(const sf::Vector2f& size) {
+    sf::Vector2f finalSize = checkSizeLimits(size);
+    sf::View view(sf::FloatRect({0, 0}, finalSize));
+
+    _renderWindow.setSize(sf::Vector2u(finalSize.x, finalSize.y));
     _renderWindow.setView(view);
+    computeScaleFactor();
+    return finalSize;
 }
 
-const sf::View& Window::getDefaultView() {
-    return _renderWindow.getDefaultView();
+// TODO: use dpi information
+void Window::computeScaleFactor() {
+    float UIScale = Settings::get<float>("uiScale");
+    if (_renderWindow.getSize().x <= sf::VideoMode::getDesktopMode().width / 2)
+        _currentScaleFactor = UIScale;
+    else {
+        _currentScaleFactor = UIScale * 1.5f;
+    }
 }
 
 bool Window::pollEvent(sf::Event& event) {
@@ -92,4 +106,8 @@ sf::Vector2i Window::getMousePosition() {
 sf::Vector2f Window::getSize() {
     sf::Vector2u size = _renderWindow.getSize();
     return sf::Vector2f(size.x, size.y);
+}
+
+float Window::getScaleFactor() {
+    return _currentScaleFactor;
 }

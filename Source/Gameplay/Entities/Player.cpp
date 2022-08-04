@@ -7,7 +7,7 @@ Player::Player(std::vector<sf::FloatRect>& collision_rects, Application& app)
     setPosition(sf::Vector2f(8, 8));
 }
 
-void Player::input(sf::Event& event) {
+void Player::input(const sf::Event& event) {
     Entity::input(event);
 }
 

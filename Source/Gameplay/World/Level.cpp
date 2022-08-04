@@ -19,16 +19,6 @@ void Level::load(short level_id) {
         TilesetManager tileset = TilesetManager(source[source.length() - 6] - '0',
                                                 Textures::Level_tileset, *_application);
 
-        for (auto i = 0; i <= 29; i++) {
-            if (tileset.getBlockProperties(i).hasCollision) {
-                for (auto& rect : tileset.getBlockCollisions(i)) {
-                    std::cout << rect.left << " " << rect.top << " " << rect.width << " "
-                              << rect.height << std::endl;
-                }
-                std::cout << std::endl;
-            }
-        }
-
         _renderstates.texture = &_application->getTexture(Textures::Level_tileset);
 
         _level_size = sf::Vector2i(json_file["width"].get<int>(), json_file["height"].get<int>());

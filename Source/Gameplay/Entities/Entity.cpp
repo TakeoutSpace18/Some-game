@@ -15,7 +15,7 @@ Entity::Entity(std::vector<sf::FloatRect>& collision_rects, std::string name, Ap
     m_animation_handler.setAnimation(m_name + "_down-idle");
 }
 
-void Entity::input(sf::Event& event) {
+void Entity::input(const sf::Event& event) {
     static bool moves_diagonal;
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::S) {

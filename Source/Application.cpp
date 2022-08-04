@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-#include "Icon.h"
 #include "Resourse_Managers/TilesetManager.h"
 #include "Settings.h"
 #include "Signal.hpp"
+#include "States/Test_state.h"
 #include "States/Playing_state.h"
 #include "States/Splash_screen.h"
 #include "Tools/Random.hpp"
@@ -18,8 +18,8 @@ Application::Application() {
 
     // loading main tileset with entities
     TilesetManager tileset{2, Textures::Main_tileset, *this};
-
-    pushState(std::make_unique<State::Splash_screen>(*this));
+    pushState(std::make_unique<State::Test>(*this));
+    // pushState(std::make_unique<State::Splash_screen>(*this));
     runMainLoop();
 }
 
@@ -57,18 +57,20 @@ void Application::handleEvents() {
         } else if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::F11) {
                 Window::toggleFullscreen();
+                sf::Vector2f newSize = Window::getSize();
                 for (auto& state : _states) {
-                    state->setViewSize(Window::getDefaultView());
+                    state->resize(newSize);
                 }
             }
         } else if (event.type == sf::Event::Resized) {
             sf::Vector2f newSize(event.size.width, event.size.height);
             sf::Vector2f finalSize = Window::setSize(newSize);
-            for (int i = 0; i < _states.size(); i++) {
-                _states[i]->setViewSize(sf::View(sf::FloatRect({0, 0}, finalSize)));
+
+            for (auto& state : _states) {
+                state->resize(finalSize);
             }
         }
-        _states.front()->input(event);
+        _states.front()->handleEvents(event);
     }
 }
 
@@ -79,13 +81,6 @@ void Application::handleSignal(Signal signal) {
         }
     }
     _states.front()->handleSignal(signal);
-}
-
-float Application::computeScaleFactor() {
-    float UIScale = Settings::get<float>("uiScale");
-    if (Window::getSize().x <= sf::VideoMode::getDesktopMode().width / 2)
-        return UIScale;
-    return UIScale * 2;
 }
 
 void Application::pushState(std::unique_ptr<State::Base> state) {

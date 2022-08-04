@@ -9,26 +9,26 @@
 State::Main_menu::Main_menu(Application& app) : Base(app) {
     _mode = Mode::Active;
     _background.setFillColor(sf::Color::White);
-    onWindowResize();
+    resize(Window::getSize());
 }
 
-void State::Main_menu::onWindowResize() {
-    _background.setSize(Window::getSize());
+void State::Main_menu::resize(sf::Vector2f newSize) {
+    _background.setSize(newSize);
 
-    float scale_factor = _application->computeScaleFactor();
+    float scale_factor = Window::getScaleFactor();
     _buttons.clear();
     _buttons.emplace_back(Button(
         Button::ID::Play,
-        sf::Vector2f(Window::getSize().x / 2,
-                     Window::getSize().y / 2 - (button_size.y + button_spacing) * scale_factor),
+        sf::Vector2f(newSize.x / 2,
+                     newSize.y / 2 - (button_size.y + button_spacing) * scale_factor),
         button_size, "Play", 26, scale_factor, *_application));
     _buttons.emplace_back(Button(Button::ID::Settings,
-                                 sf::Vector2f(Window::getSize().x / 2, Window::getSize().y / 2),
+                                 sf::Vector2f(newSize.x / 2, newSize.y / 2),
                                  button_size, "Settings", 26, scale_factor, *_application));
     _buttons.emplace_back(Button(
         Button::ID::Exit,
-        sf::Vector2f(Window::getSize().x / 2,
-                     Window::getSize().y / 2 + (button_size.y + button_spacing) * scale_factor),
+        sf::Vector2f(newSize.x / 2,
+                     newSize.y / 2 + (button_size.y + button_spacing) * scale_factor),
         button_size, "Exit", 26, scale_factor, *_application));
 }
 
@@ -54,7 +54,7 @@ void State::Main_menu::update(float dt) {
     }
 }
 
-void State::Main_menu::input(sf::Event& event) {
+void State::Main_menu::handleEvents(const sf::Event& event) {
     for (auto& button : _buttons) {
         button.input(event, _buttons);
     }
